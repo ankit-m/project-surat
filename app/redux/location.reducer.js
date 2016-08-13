@@ -1,16 +1,14 @@
-import { SAVE_NEIGHBOUR_NODES, REQ_SAVE_NODE } from './node.actions';
+import { SUCCESS_POSITION } from './location.actions';
 
-export default function location(state = {}, action) {
+const initialState = {
+  coords: null,
+};
+export default function location(state = initialState, action) {
   switch (action.type) {
-    case REQ_SAVE_NODE:
+    case SUCCESS_POSITION:
       return {
         ...state,
-        lol: 'kushan',
-      };
-    case SAVE_NEIGHBOUR_NODES:
-      return {
-        ...state,
-        nearByNodes: action.nodes,
+        coords: action.coords,
       };
     default:
       return state;

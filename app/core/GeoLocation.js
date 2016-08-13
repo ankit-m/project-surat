@@ -1,33 +1,15 @@
-const options = {
+function geo_success(position) {
+  do_something(position.coords.latitude, position.coords.longitude);
+}
+
+function geo_error() {
+  alert('Sorry, no position available.');
+}
+
+const geo_options = {
   enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0,
+  maximumAge: 30000,
+  timeout: 27000,
 };
 
-export function getCurrentPosition() {
-  if ('geolocation' in navigator) {
-    const promise = new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition((position) => {
-        resolve([position.coords.latitude, position.coords.longitude]);
-      }, (error) => {
-        reject(error);
-      }, options);
-    });
-    return promise;
-  }
-  return null;
-}
-
-export function watchCurrentPosition(callback) {
-  if ('geolocation' in navigator) {
-    const target = { latitude: 0, longitude: 0 };
-    navigator.geolocation.watchPosition((position) => {
-      if (target.latitude !== position.coords.latitude || target.longitude !== position.coords.longitude) {
-        callback([position.coords.latitude, position.coords.longitude]);
-      }
-    }, (error) => {
-      callback(null);
-    }, options);
-  }
-  return null;
-}
+const wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
