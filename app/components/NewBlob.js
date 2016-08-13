@@ -22,7 +22,7 @@ const styles = {
   },
 };
 
-class NewBlob extends React.Component {
+export class NewBlob extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

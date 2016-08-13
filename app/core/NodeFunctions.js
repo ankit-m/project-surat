@@ -87,7 +87,8 @@ export function getNodesInRange(radius, nodes, geoLocation) {
   ));
 }
 
-export function submitData(coords, data, expiry, owner, isProtected, password, range) {
+// coords will be an array of [lat, lng]
+export function submitData({ coords, data, expiry, owner, isProtected, password, range }) {
   const node = createNode(coords, data, expiry, owner, isProtected, password, range);
   const squareId = coordsToId(getSquareCoords(coords[0], coords[1]));
   saveNode(node, squareId);
