@@ -1,6 +1,10 @@
 /*eslint-disable*/
 module.exports = {
   'extends': 'airbnb',
+  'globals': {
+      'describe': true,
+      'it': true,
+  },
   'rules': {
     'max-len': [
       1,
@@ -23,7 +27,8 @@ module.exports = {
         'args': 'none'
       }
     ],
-    'no-console': 0,
+    'no-console': 1,
+    'import/no-extraneous-dependencies': 0,
   },
   'parser': 'babel-eslint'
 };
