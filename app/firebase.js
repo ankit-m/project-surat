@@ -7,3 +7,6 @@ const config = {
   storageBucket: 'project-surat.appspot.com',
 };
 firebase.initializeApp(config);
+
+const x = firebase;
+export default x;
