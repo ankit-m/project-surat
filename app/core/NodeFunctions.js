@@ -63,7 +63,13 @@ export function getAllSquares(geoLocation) {
 }
 
 export function getNodesFromNeighbours(squareCoordsArray) {
-  return Promise.all(squareCoordsArray.map(squareCoords => getNodesFromSquare(squareCoords)));
+  return Promise.all(squareCoordsArray.map(squareCoords => getNodesFromSquare(squareCoords)))
+    // filters and undefined r
+    .then(res => res.filter(r => r))
+    // at this point res be [ {hash1: node1, hash2, node2} ] -> [ [node1, node2] , [node3, node4] ]
+    .then(res => res.map(r => Object.keys(r).map(o => r[o])))
+    // flatten [ [r, x], [y, p] ] -> [r, x, y, p]
+    .then(res => [].concat(...res));
 }
 
 export function saveNode(node, squareId) {
