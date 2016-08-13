@@ -13,9 +13,13 @@ const toggleMapStyle = {
   float: 'right',
 };
 
+const titleStyle = {
+  fontSize: '22px',
+};
+
 const Header = (props) => (
   <div style={headerStyle} className="clearfix">
-    <b style={{ fontSize: '22px' }}>{props.location}</b>
+    <b style={titleStyle}>{props.location}</b>
     <Button style={toggleMapStyle}>
       <span className="glyphicon glyphicon-menu-hamburger" />
     </Button>

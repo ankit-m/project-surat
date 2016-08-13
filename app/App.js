@@ -8,13 +8,15 @@ export default class App extends Component {
   foo() {
     // foo
   }
+  addBlob() {
+  }
   render() {
     return (
       <div>
         <Header location="Surat" />
         <div className="container">
           <Blob />
-          <NewBlob />
+          <NewBlob handler={this.addBlob} />
         </div>
       </div>
     );

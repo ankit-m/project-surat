@@ -8,16 +8,18 @@ import {
   Button,
 } from 'react-bootstrap';
 
-const addStyle = {
-  border: '0',
-  textAlign: 'center',
-  opacity: '0.3',
-};
 
-const formList = {
-  border: '0',
-  opacity: '0.3',
-  backgroundColor: '#f0f0f0',
+const styles = {
+  add: {
+    border: '0',
+    textAlign: 'center',
+    opacity: '0.3',
+  },
+  form: {
+    border: '0',
+    opacity: '0.3',
+    backgroundColor: '#f0f0f0',
+  },
 };
 
 class NewBlob extends React.Component {
@@ -25,6 +27,10 @@ class NewBlob extends React.Component {
     super(props);
     this.state = {
       showForm: false,
+      data: 'Your Message',
+      pass: '',
+      range: '',
+      expire: '',
     };
     this.toggleShowForm = this.toggleShowForm.bind(this);
     this.cancelForm = this.cancelForm.bind(this);
@@ -37,6 +43,12 @@ class NewBlob extends React.Component {
     this.setState({ showForm: false });
   }
   submitForm() {
+    this.props.handler(
+      this.state.data,
+      this.state.range,
+      this.state.pass,
+      this.state.expire
+    );
   }
   clearForm() {
   }
@@ -44,7 +56,7 @@ class NewBlob extends React.Component {
     if (!this.state.showForm) {
       return (
         <ListGroup>
-          <ListGroupItem style={addStyle}>
+          <ListGroupItem style={styles.add}>
             <div onClick={this.toggleShowForm} style={{ cursor: 'pointer' }}>
               <span className="glyphicon glyphicon-plus-sign" />
               <br />
@@ -57,21 +69,21 @@ class NewBlob extends React.Component {
     return (
       <div>
         <ListGroup>
-          <ListGroupItem style={formList}>
+          <ListGroupItem style={styles.form}>
             <FormGroup controlId="data">
-              <FormControl componentClass="textarea" placeholder="Your Message" />
+              <FormControl componentClass="textarea" defaultValue={this.state.data} />
             </FormGroup>
             <Form inline>
               <FormGroup controlId="range">
-                <FormControl type="number" placeholder="Range (metres)" />
+                <FormControl type="number" placeholder="Range (metres)" defaultValue={this.state.range} />
               </FormGroup>
               {' '}
               <FormGroup controlId="pass">
-                <FormControl type="number" placeholder="PIN" />
+                <FormControl type="number" placeholder="PIN" defaultValue={this.state.pass} />
               </FormGroup>
               {' '}
-              <FormGroup controlId="pass">
-                <FormControl type="number" placeholder="Lifetime (minutes)" />
+              <FormGroup controlId="expire">
+                <FormControl type="number" placeholder="Lifetime (minutes)" defaultValue={this.state.expire} />
               </FormGroup>
             </Form>
           </ListGroupItem>
@@ -85,5 +97,9 @@ class NewBlob extends React.Component {
     );
   }
 }
+
+NewBlob.propTypes = {
+  handler: React.PropTypes.func.isRequired,
+};
 
 export default NewBlob;
