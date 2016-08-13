@@ -12,8 +12,10 @@ export default class App extends Component {
     return (
       <div>
         <Header location="Surat" />
-        <Blob />
-        <NewBlob />
+        <div className="container">
+          <Blob />
+          <NewBlob />
+        </div>
       </div>
     );
   }
