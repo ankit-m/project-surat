@@ -6,6 +6,7 @@ const headerStyle = {
   padding: '10px',
   borderBottom: '1px solid',
   borderColor: '#f0f0f0',
+  paddingLeft: '20px',
 };
 
 const toggleMapStyle = {

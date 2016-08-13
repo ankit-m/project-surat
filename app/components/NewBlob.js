@@ -17,7 +17,7 @@ const addStyle = {
 const formList = {
   border: '0',
   opacity: '0.3',
-  padding: '0',
+  backgroundColor: '#f0f0f0',
 };
 
 class NewBlob extends React.Component {
