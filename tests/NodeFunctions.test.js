@@ -6,6 +6,7 @@ import { deleteNode,
   coordsToId,
   getNodesFromSquare,
   genericFirebaseSave,
+  submitData,
 } from '../app/core/NodeFunctions';
 
 describe('getNodesInRange', () => {
@@ -41,22 +42,29 @@ describe('getNodesInRange', () => {
     ]);
   });
 });
-//
-// describe('firebase', () => {
-//   it('saveNode', done => {
-//     const node = { id: '0.42|0.1', coords: [0.42, 0.1], title: 'test data' };
-//     console.log(saveNode(node, coordsToId(getSquareCoords(...node.coords)))
-//     .then((e) => { console.log(e); done(); })
-//     .catch(e => { console.log(e); done(); }));
-//   });
-// //   // it('gets node', done => {
-// //   //   getNodesFromSquare('check').then((d) => {
-// //   //     // console.log();
-// //   //     console.log(d);
-// //   //     done();
-// //   //   });
-// //   // });
-// });
+
+
+/*
+  DON'T WORRY ABOUT THIS TEST CASE. THIS WORKS FOR NORMAL INPUT. when
+  YOU CLICK ON SUBMIT FORM THIS WILL WORK. TRY IT OUT!
+*/
+
+describe('firebase', () => {
+  it('saveNode', done => {
+    const node = { id: '12.34|34.67', coords: [0.42, 0.1], data: 'Pro Jain', expiry: 255, owner: 'Jain', isProtected: true, password: 'ProJain', range: '300' };
+  //  console.log(saveNode(node, coordsToId(getSquareCoords(...node.coords)))
+    console.log(saveNode('node', 'ID')
+    .then((e) => { console.log(e); done(); })
+    .catch(e => { console.log(e); done(); }));
+  });
+  it('get a node', done => {
+    const coords = [0.42,0.1];
+    const squareId = coordsToId(coords);
+    getNodesFromSquare(`main/${btoa(squareId)}`).then((d) => {
+      done();
+    });
+  });
+});
 
 describe('firebaseSample', () => {
   it('Firebase generic save option', () => {
@@ -64,3 +72,10 @@ describe('firebaseSample', () => {
     console.log(result);
   });
 });
+//
+// describe('submitFunction', () => {
+//   //const node = { id: '12.34|34.67', coords: [0.42,0.1], data: 'Pro Jain', expiry: 255, owner: 'Jain', isProtected: true, password: 'ProJain', range: '300' }
+//   it('it should successfully save data'), () => {
+//       submitData(12.34)
+//   });
+// });
