@@ -1,6 +1,9 @@
 /*eslint-disable*/
 module.exports = {
   'extends': 'airbnb',
+  'globals': {
+      'document': true
+  },
   'rules': {
     'max-len': [
       1,
@@ -23,7 +26,8 @@ module.exports = {
         'args': 'none'
       }
     ],
-    'no-console': 0,
+    'no-console': 1,
+    'react/jsx-filename-extension': 0,
   },
   'parser': 'babel-eslint'
 };

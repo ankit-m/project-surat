@@ -46,7 +46,7 @@ const common = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'node_modules/html-webpack-template/index.ejs',
-      title: 'autochetan.io',
+      title: 'Project Surat 👯',
       appMountId: 'app',
       inject: false,
     }),

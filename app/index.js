@@ -1,10 +1,9 @@
-import './main.css';
-import React from 'react';
 import { render } from 'react-dom';
+import React from 'react';
 import App from './App';
 
-const node = document.createElement('div');
-node.setAttribute('id', 'node');
-document.body.appendChild(node);
+import './main.css';
 
-render(<App/>, node);
+const node = document.getElementById('app');
+
+render(<App />, node);
