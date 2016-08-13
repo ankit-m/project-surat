@@ -5,7 +5,7 @@ const iconStyle = {
   borderRadius: '40px',
   margin: '2px',
 };
-
+// Take in arguments from Blobloader here!
 const Blob = () => (
   <ListGroup style={{ marginTop: '20px' }}>
     <ListGroupItem className="clearfix">

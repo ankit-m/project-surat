@@ -11,12 +11,9 @@ export default class BlobLoader extends React.Component {
       displayState: [],
     };
   }
-
   componentDidMount() {
-    // watchCurrentPosition(this.updateDisplay);
     this.updateDisplay();
   }
-
   updateDisplay() {
     const self = this;
     getCurrentPosition().then((result) => {
@@ -25,6 +22,11 @@ export default class BlobLoader extends React.Component {
       const squareId = coordsToId(squareCoords);
       const nodesInSquare = getNodesFromSquare(squareId);
       console.log(nodesInSquare);
+
+      // Convert the promise into an array of nodes. Then pass data of each node to <Blob />
+      // Set state into displayState
+
+      // self.setState({ });
     });
 
     // Blob can be called here with appropriate arguments from nodesInSquare
@@ -38,7 +40,8 @@ export default class BlobLoader extends React.Component {
     const display = this.state.displayState;
     return (<div>
       { display }
-      <NewBlob /></div>
+      <NewBlob />
+    </div>
     );
   }
 }
