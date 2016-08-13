@@ -16,7 +16,7 @@ export function recSaveNode() {
   };
 }
 
-export function saveNeighbourNodes(nodes) {
+function saveNeighbourNodes(nodes) {
   return {
     type: SAVE_NEIGHBOUR_NODES,
     nodes,
@@ -26,7 +26,7 @@ export function saveNeighbourNodes(nodes) {
 export function getNodes(location) {
   const sqrs = getAllSquares(location);
   return dispatch =>
-    getNodesFromNeighbours(sqrs)
-      .then((nodes) => saveNeighbourNodes(nodes))
+   getNodesFromNeighbours(sqrs)
+      .then((nodes) => dispatch(saveNeighbourNodes(nodes)))
       .catch(e => console.error(e));
 }

@@ -19,19 +19,19 @@ class BlobList extends React.Component {
   }
   componentDidMount() {
     this.props.getNodes([12.396, 34.670]);
-      // .then((dat) => {
-      //   console.log(dat);
-      // });
   }
   updateDisplay() {
     // 12.396, 34.670
 
   }
   render() {
-    console.log(this.props.node);
+    if (!this.props.node.nearByNodes) {
+      return <div> hang on!! bruh~</div>;
+    }
+
     return (
       <div>
-        asda
+        {JSON.stringify(this.props.node.nearByNodes)}
       </div>
     );
   }
