@@ -1,10 +1,23 @@
 import React from 'react';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import {
+  ListGroup,
+  ListGroupItem,
+  Form,
+  FormGroup,
+  FormControl,
+  Button,
+} from 'react-bootstrap';
 
 const addStyle = {
   border: '0',
   textAlign: 'center',
   opacity: '0.3',
+};
+
+const formList = {
+  border: '0',
+  opacity: '0.3',
+  padding: '0',
 };
 
 class NewBlob extends React.Component {
@@ -42,11 +55,33 @@ class NewBlob extends React.Component {
       );
     }
     return (
-      <ListGroup>
-        <ListGroupItem style={addStyle}>
-          add form HERE!
-        </ListGroupItem>
-      </ListGroup>
+      <div>
+        <ListGroup>
+          <ListGroupItem style={formList}>
+            <FormGroup controlId="data">
+              <FormControl componentClass="textarea" placeholder="Your Message" />
+            </FormGroup>
+            <Form inline>
+              <FormGroup controlId="range">
+                <FormControl type="number" placeholder="Range (metres)" />
+              </FormGroup>
+              {' '}
+              <FormGroup controlId="pass">
+                <FormControl type="number" placeholder="PIN" />
+              </FormGroup>
+              {' '}
+              <FormGroup controlId="pass">
+                <FormControl type="number" placeholder="Lifetime (minutes)" />
+              </FormGroup>
+            </Form>
+          </ListGroupItem>
+        </ListGroup>
+        <div className="clearfix pull-right">
+          <Button onClick={this.cancelForm}>Cancel</Button>
+          {'  '}
+          <Button onClick={this.submitForm}>Done</Button>
+        </div>
+      </div>
     );
   }
 }
