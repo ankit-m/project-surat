@@ -24,8 +24,8 @@ export function coordsToId(nodeCoords) {
 }
 
 export function getSquareCoords(lat, long) {
-  const xValue = Math.floor(lat/SQUARE_SIDE) * SQUARE_SIDE;
-  const yValue = Math.floor(long/SQUARE_SIDE) * SQUARE_SIDE;
+  const xValue = parseFloat((Math.floor(lat/SQUARE_SIDE) * SQUARE_SIDE).toPrecision(12));
+  const yValue = parseFloat((Math.floor(long/SQUARE_SIDE) * SQUARE_SIDE).toPrecision(12));
   return [xValue, yValue];
 }
 
@@ -35,15 +35,10 @@ export function deleteNode(nodeCoords) {
 }
 
 // returns promised { nodeId: node, nodeId: node, ,}
-export function getNodesFromSquare(squareId) {
-  return firebase.database().ref(`main/${squareId}`).once('value')
+export function getNodesFromSquare(squareCoords) {
+  const squareId = coordsToId(squareCoords);
+  return firebase.database().ref(`main/${btoa(squareId)}`).once('value')
     .then((snap) => snap.val());
-}
-
-export function genericFirebaseSave() {
-  return firebase.database().ref('main/check').push({
-    'Hello': 1,
-  }).then((result) => console.log(result));
 }
 
 export function getAllSquares(geoLocation) {
@@ -67,8 +62,14 @@ export function getAllSquares(geoLocation) {
   return squares;
 }
 
-export function getNodesFromNeighbours(squaresIds) {
-  return Promise.all(squaresIds.map(squareId => getNodesFromSquare(squareId)));
+export function getNodesFromNeighbours(squareCoordsArray) {
+  return Promise.all(squareCoordsArray.map(squareCoords => getNodesFromSquare(squareCoords)))
+    // filters and undefined r
+    .then(res => res.filter(r => r))
+    // at this point res be [ {hash1: node1, hash2, node2} ] -> [ [node1, node2] , [node3, node4] ]
+    .then(res => res.map(r => Object.keys(r).map(o => r[o])))
+    // flatten [ [r, x], [y, p] ] -> [r, x, y, p]
+    .then(res => [].concat(...res));
 }
 
 export function saveNode(node, squareId) {
