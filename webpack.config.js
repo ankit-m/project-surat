@@ -8,7 +8,7 @@ const Clean = require('clean-webpack-plugin');
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
   app: path.join(__dirname, 'app'),
-  build: path.join(__dirname, 'build')
+  build: path.join(__dirname, 'build'),
 };
 
 process.env.BABEL_ENV = TARGET;
@@ -16,35 +16,35 @@ process.env.BABEL_ENV = TARGET;
 const common = {
   entry: PATHS.app,
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
   },
   output: {
     path: PATHS.build,
     // Output using entry name
-    filename: '[name].js'
+    filename: '[name].js',
   },
   module: {
     loaders: [
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
-        include: PATHS.app
+        include: PATHS.app,
       },
       {
         test: /\.jsx?$/,
         loaders: ['babel?cacheDirectory'],
-        include: PATHS.app
-      }
-    ]
+        include: PATHS.app,
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'node_modules/html-webpack-template/index.html',
       title: 'Kanban app',
       appMountId: 'app',
-      inject: false
-    })
-  ]
+      inject: false,
+    }),
+  ],
 };
 
 if (TARGET === 'start' || !TARGET) {
@@ -63,11 +63,11 @@ if (TARGET === 'start' || !TARGET) {
       // parse host and port from env so this is easy
       // to customize
       host: process.env.HOST,
-      port: process.env.PORT
+      port: process.env.PORT,
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin()
-    ]
+      new webpack.HotModuleReplacementPlugin(),
+    ],
   });
 }
 
@@ -85,29 +85,29 @@ if (TARGET === 'build') {
     output: {
       path: PATHS.build,
       filename: '[name].[chunkhash].js',
-      chunkFilename: '[chunkhash].js'
+      chunkFilename: '[chunkhash].js',
     },
     plugins: [
       new Clean([PATHS.build], {
-        verbose: false // Don't write logs to console
+        verbose: false, // Don't write logs to console
       }),
       // Extract vendor and manifest files
       new webpack.optimize.CommonsChunkPlugin({
-        names: ['vendor', 'manifest']
+        names: ['vendor', 'manifest'],
       }),
       // Setting DefinePlugin affects React library size!
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('production')
+        'process.env.NODE_ENV': JSON.stringify('production'),
 
       // You can set this to JSON.stringify('development') for your
-        // development target to force NODE_ENV to development mode
-        // no matter what
+      // development target to force NODE_ENV to development mode
+      // no matter what
       }),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
-          warnings: false
-        }
-      })
-    ]
+          warnings: false,
+        },
+      }),
+    ],
   });
 }

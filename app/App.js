@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-export default class Bapp extends Component {
+
+export default class App extends Component {
   foo() {
     return 'good';
   }
