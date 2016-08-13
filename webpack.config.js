@@ -1,14 +1,14 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
-const pkg = require('./package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Clean = require('clean-webpack-plugin');
-
 const TARGET = process.env.npm_lifecycle_event;
+
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build'),
+  test: path.join(__dirname, 'tests'),
 };
 
 process.env.BABEL_ENV = TARGET;
@@ -23,12 +23,14 @@ const common = {
     // Output using entry name
     filename: '[name].js',
   },
+  node: {
+    fs: 'empty',
+  },
   module: {
     loaders: [
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
-        include: PATHS.app,
       },
       {
         test: /\.jsx?$/,
@@ -44,7 +46,7 @@ const common = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'node_modules/html-webpack-template/index.ejs',
-      title: 'Kanban app',
+      title: 'Project Surat 👯',
       appMountId: 'app',
       inject: false,
     }),
@@ -53,7 +55,7 @@ const common = {
 
 if (TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
-    devtool: 'eval-source-map',
+    devtool: 'source-map',
     devServer: {
 
       historyApiFallback: true,
@@ -80,7 +82,7 @@ if (TARGET === 'build') {
     // Define entry points needed for splitting
     entry: {
       app: PATHS.app,
-      vendor: Object.keys(pkg.dependencies).filter(v => v !== 'alt-utils'),
+      // vendor: Object.keys(pkg.dependencies).filter(v => v !== 'alt-utils'),
         // Exclude alt-utils as it won't work with this setup
         // due to the way the package has been designed
         // (no package.json main).
@@ -93,7 +95,7 @@ if (TARGET === 'build') {
     },
     plugins: [
       new Clean([PATHS.build], {
-        verbose: false, // Don't write logs to console
+        verbose: true, // Don't write logs to console
       }),
       // Extract vendor and manifest files
       new webpack.optimize.CommonsChunkPlugin({
@@ -110,8 +112,47 @@ if (TARGET === 'build') {
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false,
+          // minimize: true,
         },
       }),
+      // Webpack 2 configuration
+      // new webpack.LoaderOptionsPlugin({
+      //   minimize: true,
+      //   debug: false,
+      // }),
+
     ],
+  });
+}
+
+if (TARGET === 'test' || TARGET === 'tdd') {
+  module.exports = merge(common, {
+    devtool: 'inline-source-map',
+    resolve: {
+      alias: {
+        app: PATHS.app,
+      },
+    },
+    module: {
+      preLoaders: [
+        {
+          test: /\.jsx?$/,
+          loaders: ['isparta-instrumenter'],
+          include: PATHS.app,
+        },
+      ],
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          loaders: ['babel?cacheDirectory'],
+          include: PATHS.test,
+        },
+      ],
+    },
+    externals: {
+      'cheerio': 'window',
+      'react/lib/ExecutionEnvironment': true,
+      'react/lib/ReactContext': true,
+    },
   });
 }
