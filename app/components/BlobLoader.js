@@ -1,17 +1,20 @@
 import React from 'react';
-import { Blob } from './Blob';
+import Blob from './Blob';
+import NewBlob from './NewBlob';
 import { getCurrentPosition, watchCurrentPosition } from '../core/GeoLocation';
 import { getSquareCoords, getNodesFromSquare, coordsToId } from '../core/NodeFunctions';
 
 export default class BlobLoader extends React.Component {
   constructor(props) {
     super(props);
-    this.state.displayState = [];
+    this.state = {
+      displayState: [],
+    };
   }
 
   componentDidMount() {
-    watchCurrentPosition(this.updateDisplay);
-    this.updateHDisplay();
+    // watchCurrentPosition(this.updateDisplay);
+    this.updateDisplay();
   }
 
   updateDisplay() {
@@ -21,7 +24,7 @@ export default class BlobLoader extends React.Component {
       const squareCoords = getSquareCoords();
       const squareId = coordsToId(squareCoords);
       const nodesInSquare = getNodesFromSquare(squareId);
-      self.setState({ displayState: nodesInSquare });
+      console.log(nodesInSquare);
     });
 
     // Blob can be called here with appropriate arguments from nodesInSquare
@@ -33,8 +36,9 @@ export default class BlobLoader extends React.Component {
 
   render() {
     const display = this.state.displayState;
-    return (
+    return (<div>
       { display }
+      <NewBlob /></div>
     );
   }
 }
