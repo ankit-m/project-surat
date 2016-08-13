@@ -29,7 +29,9 @@ class BlobList extends React.Component {
     if (!this.props.node.nearByNodes) {
       return <div className="text-center" style={styles.list}>loading ... </div>;
     }
-    const blobs = this.props.node.nearByNodes.map((node, key) => <Blob node={node} key={key} />);
+    const blobs = this.props.node.nearByNodes.map((node, key) => (
+      <Blob node={node} key={key} deleteHandler={this.props.removeNode} />)
+    );
     return (
       <ListGroup style={styles.list}>
         {blobs}
@@ -41,6 +43,7 @@ class BlobList extends React.Component {
 BlobList.propTypes = {
   getNodes: React.PropTypes.func,
   node: React.PropTypes.object,
+  removeNode: React.PropTypes.func,
 };
 
 export default BlobList;

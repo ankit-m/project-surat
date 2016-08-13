@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { getAllSquares, getNodesFromNeighbours, getSquareId, deleteNode } from '../core/NodeFunctions';
-=======
-import { getAllSquares, getNodesFromNeighbours, submitData } from '../core/NodeFunctions';
->>>>>>> 05c74c0fe30672e667d89bdb684d0a1e123a7af3
+import { getAllSquares, getNodesFromNeighbours, getSquareId, deleteNode, submitData } from '../core/NodeFunctions';
 
 export const REQ_SAVE_NODE = 'SAVE_NODE';
 export const REC_SAVE_NODE = 'SAVE_NODE';
