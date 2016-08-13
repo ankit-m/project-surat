@@ -39,8 +39,8 @@ class BlobList extends React.Component {
 }
 
 BlobList.propTypes = {
-  getNodes: React.PropTypes.func.isRequired,
-  node: React.PropTypes.object.isRequired,
+  getNodes: React.PropTypes.func,
+  node: React.PropTypes.object,
 };
 
 export default BlobList;

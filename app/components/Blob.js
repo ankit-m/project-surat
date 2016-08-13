@@ -34,8 +34,8 @@ const Blob = (props) => (
 );
 
 Blob.propTypes = {
-  node: React.PropTypes.object.isRequired,
-  deleteHandler: React.PropTypes.func.isRequired,
+  node: React.PropTypes.object,
+  deleteHandler: React.PropTypes.func,
 };
 
 export default Blob;
