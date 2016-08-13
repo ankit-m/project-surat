@@ -45,6 +45,7 @@
     "webpack-merge": "^0.14.1"
   },
   "dependencies": {
+    "firebase": "^3.2.1",
     "react": "^15.3.0",
 	"react-bootstrap": "^0.30.2",
     "react-dom": "^15.3.0",
