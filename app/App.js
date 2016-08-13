@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Blob from './components/Blob.js';
 import Header from './components/Header.js';
 import NewBlob from './components/NewBlob';
-import BlobLoader from './components/BlobLoader';
+import BlobList from './components/BlobList';
 import './assets/css/bootstrap.min.css';
 import * as core from './core/NodeFunctions';
 
@@ -19,8 +18,7 @@ export default class App extends Component {
       <div>
         <Header location="Surat" />
         <div className="container">
-          <Blob />
-          <NewBlob handler={this.addBlob} />
+          <BlobList />
         </div>
       </div>
     );
