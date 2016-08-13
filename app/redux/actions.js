@@ -1,4 +1,4 @@
 export {
   getNodes,
-  reqSaveNode,
+  saveNode,
 } from './node.actions';
