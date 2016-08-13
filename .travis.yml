@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - stable
+
+before_script:
+  - npm install
+
+install:
+  - npm install
+
+script:
+  - npm test
+  - npm run lint
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - node_modules
