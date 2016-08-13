@@ -6,7 +6,7 @@ const config = {
   databaseURL: 'https://project-surat.firebaseio.com',
   storageBucket: 'project-surat.appspot.com',
 };
-firebase.initializeApp(config);
 
+firebase.initializeApp(config);
 const x = firebase;
 export default x;
