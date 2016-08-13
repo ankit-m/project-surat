@@ -2,11 +2,17 @@ import firebase from '../firebase';
 import { SQUARE_SIDE } from '../Const';
 
 // coords will be an array of [lat, lng]
-export function createNode(coords, title, expiry, owner, isProtected, password, range) {
+export function submitData(coords, data, expiry, owner, isProtected, password, range) {
+  const node = this.createNode(coords, data, expiry, owner, isProtected, password, range);
+  const squareId = this.coordsToId(this.getSquareCoords(coords[0], coords[1]));
+  this.saveNode(node, squareId);
+}
+
+export function createNode(coords, data, expiry, owner, isProtected, password, range) {
   const node = {
     id: `${coords[0]}|${coords[1]}`,
     coords,
-    title,
+    data,
     expiry,
     owner,
     isProtected,
@@ -41,6 +47,12 @@ export function getNodesFromSquare(squareId) {
     .then((snap) => snap.val());
 }
 
+export function genericFirebaseSave() {
+  return firebase.database().ref('main/check').push({
+    'Hello': 1,
+  }).then((result) => console.log(result));
+}
+
 export function getAllSquares(geoLocation) {
   const centerSqr = getSquareCoords(...geoLocation);
   const squares = [];
@@ -67,9 +79,10 @@ export function getNodesFromNeighbours(squaresIds) {
 }
 
 export function saveNode(node, squareId) {
-  // console.log(firebase.database().ref(`check`).
-  return firebase.database().ref(`main/check`)
-    .set('randommmm', function(d) {
+  console.log(firebase.database().ref('main/check').set('123'));
+  // console.log(firebase);
+  return firebase.database().ref('main/check1')
+    .set('coooll', (d) => {
       console.log(d, 'shit');
     });
 }
