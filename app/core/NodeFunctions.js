@@ -23,15 +23,22 @@ export function coordsToId(nodeCoords) {
   return nodeCoords.join('|');
 }
 
+function precise(num) {
+  // console.log(num);
+  return parseFloat(num.toPrecision(12));
+}
+
 export function getSquareCoords(lat, long) {
-  const xValue = parseFloat((Math.floor(lat/SQUARE_SIDE) * SQUARE_SIDE).toPrecision(12));
-  const yValue = parseFloat((Math.floor(long/SQUARE_SIDE) * SQUARE_SIDE).toPrecision(12));
+  const xValue = precise((Math.floor(lat/SQUARE_SIDE) * SQUARE_SIDE));
+  const yValue = precise(Math.floor(long/SQUARE_SIDE) * SQUARE_SIDE);
   return [xValue, yValue];
 }
 
 export function deleteNode(nodeCoords) {
-  const squareId = getSquareCoords(...nodeCoords);
-  firebase.database().ref(`main/${squareId}/${coordsToId(nodeCoords)}`).remove();
+  const squareId = coordsToId(getSquareCoords(...nodeCoords));
+  console.log(squareId);
+  console.log(btoa(squareId));
+  return firebase.database().ref(`main/${btoa(squareId)}/${btoa(coordsToId(nodeCoords))}`).remove();
 }
 
 // returns promised { nodeId: node, nodeId: node, ,}
@@ -45,19 +52,19 @@ export function getAllSquares(geoLocation) {
   const centerSqr = getSquareCoords(...geoLocation);
   const squares = [];
   //  top row
-  squares.push([centerSqr[0] - SQUARE_SIDE, centerSqr[1] - SQUARE_SIDE]);
-  squares.push([centerSqr[0] - SQUARE_SIDE, centerSqr[1]]);
-  squares.push([centerSqr[0] - SQUARE_SIDE, centerSqr[1] + SQUARE_SIDE]);
+  squares.push([precise(centerSqr[0] - SQUARE_SIDE), precise(centerSqr[1] - SQUARE_SIDE)]);
+  squares.push([precise(centerSqr[0] - SQUARE_SIDE), precise(centerSqr[1])]);
+  squares.push([precise(centerSqr[0] - SQUARE_SIDE), precise(centerSqr[1] + SQUARE_SIDE)]);
 
   // center row
-  squares.push([centerSqr[0], centerSqr[1] - SQUARE_SIDE]);
-  squares.push(centerSqr);
-  squares.push([centerSqr[0], centerSqr[1] + SQUARE_SIDE]);
+  squares.push([precise(centerSqr[0]), precise(centerSqr[1] - SQUARE_SIDE)]);
+  squares.push([precise(centerSqr[0]), precise(centerSqr[1])]);
+  squares.push([precise(centerSqr[0]), precise(centerSqr[1] + SQUARE_SIDE)]);
 
   // bottom row
-  squares.push([centerSqr[0] + SQUARE_SIDE, centerSqr[1] - SQUARE_SIDE]);
-  squares.push([centerSqr[0] + SQUARE_SIDE, centerSqr[1]]);
-  squares.push([centerSqr[0] + SQUARE_SIDE, centerSqr[1] + SQUARE_SIDE]);
+  squares.push([precise(centerSqr[0] + SQUARE_SIDE), precise(centerSqr[1] - SQUARE_SIDE)]);
+  squares.push([precise(centerSqr[0] + SQUARE_SIDE), precise(centerSqr[1])]);
+  squares.push([precise(centerSqr[0] + SQUARE_SIDE), precise(centerSqr[1] + SQUARE_SIDE)]);
 
   return squares;
 }
