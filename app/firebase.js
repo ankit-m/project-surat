@@ -8,5 +8,5 @@ const config = {
 };
 
 firebase.initializeApp(config);
-const x = firebase;
-export default x;
+
+export default firebase;

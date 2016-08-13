@@ -20,7 +20,7 @@ const formList = {
   backgroundColor: '#f0f0f0',
 };
 
-class NewBlob extends React.Component {
+export class NewBlob extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
