@@ -2,8 +2,8 @@
 module.exports = {
   'extends': 'airbnb',
   'globals': {
-      'document': true,
-      'window': true,
+      'describe': true,
+      'it': true,
   },
   'rules': {
     'max-len': [
@@ -28,7 +28,7 @@ module.exports = {
       }
     ],
     'no-console': 1,
-    'react/jsx-filename-extension': 0,
+    'import/no-extraneous-dependencies': 0,
   },
   'parser': 'babel-eslint'
 };

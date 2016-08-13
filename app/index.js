@@ -1,10 +1,34 @@
-import './main.css';
 import React from 'react';
-import { render } from 'react-dom';
+import render from 'react-dom';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+import reduxLogger from 'redux-logger';
+
 import App from './App';
+import reducer from './redux/reducers';
 
-const node = document.createElement('div');
-node.setAttribute('id', 'node');
-document.body.appendChild(node);
+let middleware = [thunkMiddleware];
+if (process.env.NODE_ENV !== 'production') {
+  const loggerMiddleware = reduxLogger();
+  middleware = [...middleware, loggerMiddleware];
+}
 
-render(<App/>, node);
+const store = createStore(
+  combineReducers({
+    reducer,
+  }), undefined,
+  compose(
+    applyMiddleware(
+      ...middleware
+    ),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
+);
+
+render.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('app')
+);
