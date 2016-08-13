@@ -27,7 +27,7 @@ class BlobList extends React.Component {
   }
   render() {
     if (!this.props.node.nearByNodes) {
-      return <div>loading ... </div>;
+      return <div className="text-center" style={styles.list}>loading ... </div>;
     }
     const blobs = this.props.node.nearByNodes.map((node, key) => <Blob node={node} key={key} />);
     return (

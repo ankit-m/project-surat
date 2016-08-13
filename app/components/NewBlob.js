@@ -99,7 +99,7 @@ export class NewBlob extends React.Component {
 }
 
 NewBlob.propTypes = {
-  handler: React.PropTypes.func.isRequired,
+  handler: React.PropTypes.func,
 };
 
 export default NewBlob;
