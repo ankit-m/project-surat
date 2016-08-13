@@ -7,7 +7,7 @@ const iconStyle = {
 };
 
 const Blob = () => (
-  <ListGroup>
+  <ListGroup style={{ marginTop: '20px' }}>
     <ListGroupItem className="clearfix">
       <div className="col-md-10">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit

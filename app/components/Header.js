@@ -5,7 +5,8 @@ const headerStyle = {
   position: 'relative',
   padding: '10px',
   borderBottom: '1px solid',
-  borderColor: 'grey',
+  borderColor: '#f0f0f0',
+  paddingLeft: '20px',
 };
 
 const toggleMapStyle = {
@@ -14,7 +15,7 @@ const toggleMapStyle = {
 
 const Header = (props) => (
   <div style={headerStyle} className="clearfix">
-    <span>{props.location}</span>
+    <b style={{ fontSize: '22px' }}>{props.location}</b>
     <Button style={toggleMapStyle}>
       <span className="glyphicon glyphicon-menu-hamburger" />
     </Button>
