@@ -4,8 +4,7 @@ import { Navbar } from 'react-bootstrap';
 const Header = () => (
   <Navbar>
     <Navbar.Header>
-      <Navbar.Brand>
-      </Navbar.Brand>
+      <Navbar.Brand />
       <Navbar.Toggle />
     </Navbar.Header>
     <Navbar.Collapse>

@@ -7,7 +7,7 @@
     "test": "mocha tests/.setup.js tests/**/*.test.js --compilers js:babel-core/register",
     "build": "webpack",
     "start": "webpack-dev-server",
-    "lint": "eslint . --ext .js --ext .jsx  || true",
+    "lint": "eslint ./app --ext .js --ext .jsx  || true",
     "deploy": "gh-pages -d build"
   },
   "keywords": [],
