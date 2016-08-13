@@ -1,24 +1,34 @@
 import React from 'react';
-import { Blob } from './Blob';
+import Blob from './Blob';
+import NewBlob from './NewBlob';
 import { getCurrentPosition, watchCurrentPosition } from '../core/GeoLocation';
 import { getSquareCoords, getNodesFromSquare, coordsToId } from '../core/NodeFunctions';
 
 export default class BlobLoader extends React.Component {
   constructor(props) {
     super(props);
-    this.state.displayState = [];
+    this.state = {
+      displayState: [],
+    };
   }
-
   componentDidMount() {
-    // Finds the square around the location. Finds nodes based on that square!
-    const squareCoords = getSquareCoords(getCurrentPosition());
-    const squareId = coordsToId(squareCoords);
-    const nodesInSquare = getNodesFromSquare(squareId);
-    this.updateDisplay(nodesInSquare);
+    this.updateDisplay();
   }
+  updateDisplay() {
+    const self = this;
+    getCurrentPosition().then((result) => {
+      console.log(result);
+      const squareCoords = getSquareCoords();
+      const squareId = coordsToId(squareCoords);
+      const nodesInSquare = getNodesFromSquare(squareId);
+      console.log(nodesInSquare);
 
-  updateDisplay(nodes) {
-    console.log(nodes);
+      // Convert the promise into an array of nodes. Then pass data of each node to <Blob />
+      // Set state into displayState
+
+      // self.setState({ });
+    });
+
     // Blob can be called here with appropriate arguments from nodesInSquare
     // The result can be stored in displayState.
 
@@ -28,8 +38,10 @@ export default class BlobLoader extends React.Component {
 
   render() {
     const display = this.state.displayState;
-    return (
+    return (<div>
       { display }
+      <NewBlob />
+    </div>
     );
   }
 }
