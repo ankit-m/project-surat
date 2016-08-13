@@ -8,7 +8,7 @@ export function createNode(id, title, expiry, owner, isProtected, password, rang
     owner,
     isProtected,
     password,
-    range
+    range,
   };
   return node;
 }
