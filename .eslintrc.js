@@ -29,6 +29,7 @@ module.exports = {
     ],
     'no-console': 1,
     'react/jsx-filename-extension': 0,
+    'import/prefer-default-export': 1
   },
   'parser': 'babel-eslint'
 };

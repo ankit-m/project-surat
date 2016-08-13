@@ -1,4 +1,4 @@
-import { FIREBASE_URL } from '../Const';
+// import { FIREBASE_URL } from '../Const';
 
 export function createNode(id, title, expiry, owner, isProtected, password, range) {
   const node = {
