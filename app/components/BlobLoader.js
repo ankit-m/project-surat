@@ -15,11 +15,15 @@ export default class BlobLoader extends React.Component {
   }
 
   updateDisplay() {
+    const self = this;
+    getCurrentPosition().then((result) => {
+      console.log(result);
+      const squareCoords = getSquareCoords();
+      const squareId = coordsToId(squareCoords);
+      const nodesInSquare = getNodesFromSquare(squareId);
+      self.setState({ displayState: nodesInSquare });
+    });
 
-    const squareCoords = getSquareCoords(getCurrentPosition());
-    const squareId = coordsToId(squareCoords);
-    const nodesInSquare = getNodesFromSquare(squareId);
-    console.log(nodes);
     // Blob can be called here with appropriate arguments from nodesInSquare
     // The result can be stored in displayState.
 
