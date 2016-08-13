@@ -1,7 +1,15 @@
 import React from 'react';
+import { ListGroup } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions';
+import Blob from './Blob';
+
+const styles = {
+  list: {
+    marginTop: '20px',
+  },
+};
 
 function mapStatetoProps(state) {
   return { ...state.reducer };
@@ -13,28 +21,26 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStatetoProps, mapDispatchToProps)
 class BlobList extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log(this.props);
-  }
   componentDidMount() {
+    // getlocation here
     this.props.getNodes([12.396, 34.670]);
-  }
-  updateDisplay() {
-    // 12.396, 34.670
-
   }
   render() {
     if (!this.props.node.nearByNodes) {
-      return <div> hang on!! bruh~</div>;
+      return <div>loading ... </div>;
     }
-
+    const blobs = this.props.node.nearByNodes.map((node, key) => <Blob node={node} key={key} />);
     return (
-      <div>
-        {JSON.stringify(this.props.node.nearByNodes)}
-      </div>
+      <ListGroup style={styles.list}>
+        {blobs}
+      </ListGroup>
     );
   }
 }
+
+BlobList.propTypes = {
+  getNodes: React.PropTypes.func.isRequired,
+  node: React.PropTypes.object.isRequired,
+};
 
 export default BlobList;
