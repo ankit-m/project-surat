@@ -1,11 +1,10 @@
 
-export function createSquare(xValue, yValue, length, breadth) {
-
-  let squareClass = {
+export default function createSquare(xValue, yValue, length, breadth) {
+  const squareClass = {
     xValue,
     yValue,
     length,
-    breadth
-  }
+    breadth,
+  };
   return squareClass;
 }
