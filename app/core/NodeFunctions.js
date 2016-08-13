@@ -1,7 +1,6 @@
 import firebase from '../firebase';
 import { SQUARE_SIDE } from '../Const';
 
-// coords will be an array [lat, lon]
 export function createNode(coords, data, expiry, owner, isProtected, password, range) {
   const node = {
     id: `${coords[0]}|${coords[1]}`,
@@ -73,8 +72,10 @@ export function getNodesFromNeighbours(squaresIds) {
 }
 
 export function saveNode(node, squareId) {
-  return firebase.database().ref(`main/${squareId}/${node.id}`)
-    .set(node);
+  return firebase.database().ref(`main/${btoa(squareId)}/${btoa(node.id)}`)
+    .set(node).then(() => {
+      console.log(`main/${btoa(squareId)}/${btoa(node.id)}`);
+    });
 }
 
 export function getNodesInRange(radius, nodes, geoLocation) {
@@ -86,7 +87,6 @@ export function getNodesInRange(radius, nodes, geoLocation) {
   ));
 }
 
-// coords will be an array of [lat, lng]
 export function submitData(coords, data, expiry, owner, isProtected, password, range) {
   const node = createNode(coords, data, expiry, owner, isProtected, password, range);
   const squareId = coordsToId(getSquareCoords(coords[0], coords[1]));

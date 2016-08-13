@@ -10,15 +10,20 @@ export default class BlobLoader extends React.Component {
   }
 
   componentDidMount() {
-    // Finds the square around the location. Finds nodes based on that square!
-    const squareCoords = getSquareCoords(getCurrentPosition());
-    const squareId = coordsToId(squareCoords);
-    const nodesInSquare = getNodesFromSquare(squareId);
-    this.updateDisplay(nodesInSquare);
+    watchCurrentPosition(this.updateDisplay);
+    this.updateHDisplay();
   }
 
-  updateDisplay(nodes) {
-    console.log(nodes);
+  updateDisplay() {
+    const self = this;
+    getCurrentPosition().then((result) => {
+      console.log(result);
+      const squareCoords = getSquareCoords();
+      const squareId = coordsToId(squareCoords);
+      const nodesInSquare = getNodesFromSquare(squareId);
+      self.setState({ displayState: nodesInSquare });
+    });
+
     // Blob can be called here with appropriate arguments from nodesInSquare
     // The result can be stored in displayState.
 
