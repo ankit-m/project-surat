@@ -1,21 +1,28 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
-const Header = () => (
-  <Navbar>
-    <Navbar.Header>
-      <Navbar.Brand />
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
-      <Navbar.Text>
-        Signed in as: <Navbar.Link href="#">Mark Otto</Navbar.Link>
-      </Navbar.Text>
-      <Navbar.Text pullRight>
-        Have a great day!
-      </Navbar.Text>
-    </Navbar.Collapse>
-  </Navbar>
+const headerStyle = {
+  position: 'relative',
+  padding: '10px',
+  borderBottom: '1px solid',
+  borderColor: 'grey',
+};
+
+const toggleMapStyle = {
+  float: 'right',
+};
+
+const Header = (props) => (
+  <div style={headerStyle} className="clearfix">
+    <span>{props.location}</span>
+    <Button style={toggleMapStyle}>
+      <span className="glyphicon glyphicon-menu-hamburger" />
+    </Button>
+  </div>
 );
+
+Header.propTypes = {
+  location: React.PropTypes.string.isRequired,
+};
 
 export default Header;

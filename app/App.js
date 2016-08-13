@@ -7,6 +7,6 @@ export default class App extends Component {
     // foo
   }
   render() {
-    return (<Header />);
+    return (<Header location="India" />);
   }
 }
