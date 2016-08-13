@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { getAllSquares, getNodesFromNeighbours, getSquareId, deleteNode } from '../core/NodeFunctions';
+=======
+import { getAllSquares, getNodesFromNeighbours, submitData } from '../core/NodeFunctions';
+>>>>>>> 05c74c0fe30672e667d89bdb684d0a1e123a7af3
 
 export const REQ_SAVE_NODE = 'SAVE_NODE';
 export const REC_SAVE_NODE = 'SAVE_NODE';
@@ -37,6 +41,14 @@ export function removeNode(nodeCoords) {
     .catch((e) => console.error(e));
 }
 
+export function saveNode(nodeObj) {
+  return dispatch => {
+    dispatch(reqSaveNode());
+    submitData(nodeObj)
+      .then(() => dispatch(recSaveNode()))
+      .catch(e => console.error(e));
+  };
+}
 export function getNodes(location) {
   const sqrs = getAllSquares(location);
   return dispatch =>

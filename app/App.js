@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './components/Header.js';
 import NewBlob from './components/NewBlob';
 import BlobList from './components/BlobList';
@@ -7,20 +7,12 @@ import * as core from './core/NodeFunctions';
 
 window.core = core;
 
-export default class App extends Component {
-  foo() {
-    // foo
-  }
-  addBlob() {
-  }
-  render() {
-    return (
-      <div>
-        <Header location="Surat" />
-        <div className="container">
-          <BlobList />
-        </div>
-      </div>
-    );
-  }
-}
+export default () => (
+  <div>
+    <Header location="Surat" />
+    <div className="container">
+      <BlobList />
+      <NewBlob />
+    </div>
+  </div>
+);
