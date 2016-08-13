@@ -1,7 +1,7 @@
-import { getAllSquares, getNodesFromNeighbours, submitData } from '../core/NodeFunctions';
+import { getAllSquares, getNodesFromNeighbours } from '../core/NodeFunctions';
 
-export const REQ_SAVE_NODE = 'SAVE_NODE';
-export const REC_SAVE_NODE = 'SAVE_NODE';
+export const SET_LOCATION = 'SAVE_NODE';
+export const GET_NODE= 'SAVE_NODE';
 export const SAVE_NEIGHBOUR_NODES = 'SAVE_NEIGHBOUR_NODES';
 
 export function reqSaveNode() {
@@ -23,14 +23,6 @@ function saveNeighbourNodes(nodes) {
   };
 }
 
-export function saveNode(nodeObj) {
-  return dispatch => {
-    dispatch(reqSaveNode());
-    submitData(nodeObj)
-      .then(() => dispatch(recSaveNode()))
-      .catch(e => console.error(e));
-  };
-}
 export function getNodes(location) {
   const sqrs = getAllSquares(location);
   return dispatch =>
