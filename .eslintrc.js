@@ -2,7 +2,8 @@
 module.exports = {
   'extends': 'airbnb',
   'globals': {
-      'document': true
+      'document': true,
+      'window': true,
   },
   'rules': {
     'max-len': [
