@@ -14,18 +14,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actions, dispatch);
 }
 
-
-const fileInput = document.getElementById('config-file');
-fileInput.addEventListener('change', (e) => {
-  let file = fileInput.files[0], textType = /text.*/;
-  if (file.type.match(textType)) { const reader = new FileReader();
-    reader.onload = (e) => { const config = JSON.parse(reader.result);
-      if (this.validateConfigFile(config)) { this.save(config, 'Restored configuration from file');
-        window.location.reload(); }
-      else { this.status('Corrupted File.', 2000, 100, 'danger'); } };
-    reader.readAsText(file); } else { this.status('Unsupported file format.', 2000, 100, 'danger'); } });
-fileInput.click();
-
 @connect(mapStatetoProps, mapDispatchToProps)
 export default class Navigator extends React.Component {
   static propTypes = {

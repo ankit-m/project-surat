@@ -102,7 +102,7 @@ export class NewBlob extends React.Component {
     return (
       <div>
         <ListGroup style={{ margin: '0 10px' }}>
-          <ListGroupItem style={styles.form}>
+          <ListGroupItem style={styles.form} className="clearfix">
             <FormGroup controlId="data">
               <FormControl componentClass="textarea" placeholder="Your message" value={this.state.data} onChange={this.setData} />
             </FormGroup>
