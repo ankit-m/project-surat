@@ -93,7 +93,7 @@ export default class Maps extends React.Component {
       <Map
         style="mapbox://styles/mapbox/dark-v9"
         center={swapArray(this.props.location.coords)}
-        zoom={18}
+        zoom={16}
         mapboxgl={mapboxgl}
         onLoad={(map) => { this.map = map; }}
       >
