@@ -10,6 +10,7 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions';
+import File from './FileHandler';
 
 const styles = {
   add: {
@@ -78,6 +79,7 @@ export class NewBlob extends React.Component {
       isProtected,
     });
     this.setState({ showForm: false });
+    this.clearForm();
   }
   clearForm() {
     this.setState({
@@ -102,11 +104,12 @@ export class NewBlob extends React.Component {
     return (
       <div>
         <ListGroup style={{ margin: '0 10px' }}>
-          <ListGroupItem style={styles.form}>
+          <ListGroupItem style={styles.form} className="clearfix">
             <FormGroup controlId="data">
               <FormControl componentClass="textarea" placeholder="Your message" value={this.state.data} onChange={this.setData} />
             </FormGroup>
-            <Form inline>
+            <File />
+            <Form style={{ marginTop: '15px' }} inline>
               <FormGroup controlId="owner">
                 <FormControl type="textarea" placeholder="Owner" value={this.state.owner} onChange={this.setOwner} />
               </FormGroup>
