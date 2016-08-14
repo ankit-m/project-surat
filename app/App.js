@@ -11,7 +11,7 @@ window.core = core;
 
 export default () => (
   <div>
-    <Header location="Surat" />
+    <Header place="Surat" />
     <div className="container">
       <BlobList />
       <NewBlob />

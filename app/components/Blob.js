@@ -19,6 +19,14 @@ class Blob extends React.Component {
   deleteBlob(e) {
     this.props.deleteHandler(this.props.node.coords);
   }
+  measure(coord1, coord2) {
+    const lat1 = coord1[0];
+    const lon1 = coord1[1];
+    const lat2 = coord2[0];
+    const lon2 = coord2[1];
+    const RAD = 0.000008998719243599958;
+    return parseInt(Math.sqrt(Math.pow(lat1 - lat2, 2) + Math.pow(lon1 - lon2, 2)) / RAD);
+  }
   render() {
     return (
       <ListGroupItem className="clearfix">
@@ -28,7 +36,7 @@ class Blob extends React.Component {
         <div className="pull-right">
           <small className="text-muted" style={styles.author} >{this.props.node.owner}</small>
           <span style={styles.icon}>
-            <Label bsStyle="warning"><small>{`${this.props.node.range} m`}</small></Label>
+            <Label bsStyle="warning"><small>{`${this.measure(this.props.node.coords, this.props.location.coords)} m`}</small></Label>
           </span>
           {/*<span style={styles.icon}>
             <Label bsStyle="default">

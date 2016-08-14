@@ -27,11 +27,14 @@ class BlobList extends React.Component {
     this.props.getNodes([12.396, 34.670]);
   }
   render() {
+    if (this.props.location.coords === null) {
+      return <div className="text-center" style={styles.list}>getting your location ... </div>;
+    }
     if (!this.props.node.nearByNodes) {
-      return <div className="text-center" style={styles.list}>loading ... </div>;
+      return <div className="text-center" style={styles.list}>loading nearby nodes ... </div>;
     }
     const blobs = this.props.node.nearByNodes.map((node, key) => (
-      <Blob node={node} key={key} deleteHandler={this.props.removeNode} />)
+      <Blob node={node} key={key} deleteHandler={this.props.removeNode} location={this.props.location} />)
     );
 
     return (
