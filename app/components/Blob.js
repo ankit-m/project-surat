@@ -57,7 +57,7 @@ class Blob extends React.Component {
 Blob.propTypes = {
   node: React.PropTypes.object,
   deleteHandler: React.PropTypes.func,
-  location: React.PropTypes.array,
+  location: React.PropTypes.object,
 };
 
 export default Blob;

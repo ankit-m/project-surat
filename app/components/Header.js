@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions';
@@ -21,10 +20,6 @@ const headerStyle = {
   paddingLeft: '20px',
 };
 
-const toggleMapStyle = {
-  float: 'right',
-};
-
 const titleStyle = {
   fontSize: '22px',
 };
@@ -36,9 +31,6 @@ class Header extends React.Component {
       return (
         <div style={headerStyle} className="clearfix">
           <b style={titleStyle}>{this.props.place}</b>
-          <Button style={toggleMapStyle}>
-            <span className="glyphicon glyphicon-menu-hamburger" />
-          </Button>
         </div>
       );
     }
@@ -52,9 +44,6 @@ class Header extends React.Component {
           {this.props.location.coords[1].toPrecision(3)}
           {')'}
         </small>
-        <Button style={toggleMapStyle}>
-          <span className="glyphicon glyphicon-menu-hamburger" />
-        </Button>
       </div>
     );
   }
