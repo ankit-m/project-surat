@@ -8,7 +8,7 @@ function geo_error() {
 
 const geo_options = {
   enableHighAccuracy: true,
-  maximumAge: 0,
+  maximumAge: 10000,
   timeout: 27000,
 };
 
