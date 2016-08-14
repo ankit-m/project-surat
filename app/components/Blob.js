@@ -34,12 +34,34 @@ class Blob extends React.Component {
     return parseInt(Math.sqrt(Math.pow(lat1 - lat2, 2) + Math.pow(lon1 - lon2, 2)) / RAD);
   }
   render() {
+    if (this.props.node.data.type === 'txt') {
+      return (
+        <ListGroupItem className="clearfix" style={this.props.isActive ? styles.active: styles.inActive} >
+          <div style={{ display: 'inline' }}>
+            {this.props.node.data.content}
+          </div>
+          <div className="pull-right" style={{ padding: '2px' }}>
+            <small className="text-muted" style={styles.author} >{this.props.node.owner}</small>
+            <span style={styles.icon}>
+              <Label bsStyle="warning">
+                <span>{`${this.measure(this.props.node.coords, this.props.location.coords)} m`}</span>
+              </Label>
+            </span>
+            <span style={styles.icon}>
+              <Label bsStyle="success">
+                <span>{this.props.node.data.type}</span>
+              </Label>
+            </span>
+          </div>
+        </ListGroupItem>
+      );
+    }
     return (
       <ListGroupItem className="clearfix" style={this.props.isActive ? styles.active: styles.inActive} >
-        <div className="col-md-9">
-          {this.props.node.data.content}
+        <div style={{ display: 'inline' }}>
+          <a href={this.props.node.data.content} target="blank">{this.props.node.data.name}</a>
         </div>
-        <div className="pull-right">
+        <div className="pull-right" style={{ padding: '2px' }}>
           <small className="text-muted" style={styles.author} >{this.props.node.owner}</small>
           <span style={styles.icon}>
             <Label bsStyle="warning">
@@ -51,14 +73,6 @@ class Blob extends React.Component {
               <span>{this.props.node.data.type}</span>
             </Label>
           </span>
-          {/* <span style={styles.icon}>
-            <Label bsStyle="default">
-              <span className="glyphicon glyphicon-lock" />
-            </Label>
-          </span>*/}
-          {/*<Button bsStyle="danger" style={styles.icon} bsSize="xsmall" onClick={this.deleteBlob}>
-            <span className="glyphicon glyphicon-remove" />
-          </Button>*/}
         </div>
       </ListGroupItem>
     );
