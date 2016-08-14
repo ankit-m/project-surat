@@ -1,4 +1,4 @@
-import { SAVE_NEIGHBOUR_NODES, REQ_SAVE_NODE, REC_SAVE_NODE } from './node.actions';
+import { SAVE_NEIGHBOUR_NODES, REQ_SAVE_NODE, REC_SAVE_NODE, SET_SQUARES } from './node.actions';
 
 export default function node(state = {}, action) {
   switch (action.type) {
@@ -16,6 +16,11 @@ export default function node(state = {}, action) {
       return {
         ...state,
         nearByNodes: action.nodes,
+      };
+    case SET_SQUARES:
+      return {
+        ...state,
+        squares: action.squares,
       };
     default:
       return state;
