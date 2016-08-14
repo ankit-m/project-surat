@@ -38,10 +38,11 @@ export class NewBlob extends React.Component {
     super(props);
     this.state = {
       showForm: false,
-      data: 'Your Message',
+      data: '',
       pass: '',
       range: '',
       expire: '',
+      owner: '',
     };
     this.toggleShowForm = this.toggleShowForm.bind(this);
     this.cancelForm = this.cancelForm.bind(this);
@@ -51,11 +52,13 @@ export class NewBlob extends React.Component {
     this.setRange = this.setRange.bind(this);
     this.setPass = this.setPass.bind(this);
     this.setExpiry = this.setExpiry.bind(this);
+    this.setOwner = this.setOwner.bind(this);
   }
   setData(e) { this.setState({ data: e.target.value }); }
   setPass(e) { this.setState({ pass: e.target.value }); }
   setRange(e) { this.setState({ range: e.target.value }); }
   setExpiry(e) { this.setState({ expire: e.target.value }); }
+  setOwner(e) { this.setState({ owner: e.target.value }); }
   toggleShowForm() {
     this.setState({ showForm: true });
   }
@@ -65,7 +68,6 @@ export class NewBlob extends React.Component {
   }
   submitForm() {
     const coords = this.props.location.coords;
-    const owner = 'Ankit Muchhala';
     const isProtected = false;
     const password = '';
     this.props.saveNode({
@@ -74,17 +76,18 @@ export class NewBlob extends React.Component {
       password,
       expiry: this.state.expire,
       coords,
-      owner,
+      owner: this.state.owner || 'Anonymous',
       isProtected,
     });
     this.setState({ showForm: false });
   }
   clearForm() {
     this.setState({
-      data: 'Your Message',
+      data: '',
       pass: '',
       expire: '',
       range: '',
+      owner: '',
     });
   }
   render() {
@@ -106,7 +109,7 @@ export class NewBlob extends React.Component {
         <ListGroup>
           <ListGroupItem style={styles.form}>
             <FormGroup controlId="data">
-              <FormControl componentClass="textarea" value={this.state.data} onChange={this.setData} />
+              <FormControl componentClass="textarea" placeholder="Your message" value={this.state.data} onChange={this.setData} />
             </FormGroup>
             <Form inline>
               <FormGroup controlId="range">
@@ -119,6 +122,10 @@ export class NewBlob extends React.Component {
               {' '}
               <FormGroup controlId="expire">
                 <FormControl type="number" placeholder="Lifetime (minutes)" value={this.state.expire} onChange={this.setExpiry} />
+              </FormGroup>
+              {' '}
+              <FormGroup controlId="owner">
+                <FormControl type="textarea" placeholder="Owner" value={this.state.owner} onChange={this.setOwner} />
               </FormGroup>
             </Form>
           </ListGroupItem>
