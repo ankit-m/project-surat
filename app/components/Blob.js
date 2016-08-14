@@ -36,7 +36,9 @@ class Blob extends React.Component {
         <div className="pull-right">
           <small className="text-muted" style={styles.author} >{this.props.node.owner}</small>
           <span style={styles.icon}>
-            <Label bsStyle="warning"><small>{`${this.measure(this.props.node.coords, this.props.location.coords)} m`}</small></Label>
+            <Label bsStyle="warning">
+              <small>{`${this.measure(this.props.node.coords, this.props.location.coords)} m`}</small>
+            </Label>
           </span>
           {/*<span style={styles.icon}>
             <Label bsStyle="default">
@@ -55,6 +57,7 @@ class Blob extends React.Component {
 Blob.propTypes = {
   node: React.PropTypes.object,
   deleteHandler: React.PropTypes.func,
+  location: React.PropTypes.array,
 };
 
 export default Blob;

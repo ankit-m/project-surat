@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions';
 import Blob from './Blob';
-// import { LANGUAGE_URL } from '../Const'
 
 const styles = {
   list: {
@@ -22,10 +21,6 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStatetoProps, mapDispatchToProps)
 class BlobList extends React.Component {
-  componentDidMount() {
-    // getlocation here
-    this.props.getNodes([12.396, 34.670]);
-  }
   render() {
     if (this.props.location.coords === null) {
       return <div className="text-center" style={styles.list}>getting your location ... </div>;
@@ -49,6 +44,7 @@ BlobList.propTypes = {
   getNodes: React.PropTypes.func,
   node: React.PropTypes.object,
   removeNode: React.PropTypes.func,
+  location: React.PropTypes.array,
 };
 
 export default BlobList;
