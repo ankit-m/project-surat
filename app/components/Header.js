@@ -57,7 +57,6 @@ class Header extends React.Component {
         </div>
       );
     }
-    console.log(this.props.location.coords);
     return (
       <div style={headerStyle} className="clearfix">
         <b style={titleStyle}>{this.props.place}</b>
