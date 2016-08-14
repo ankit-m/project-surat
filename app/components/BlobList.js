@@ -22,16 +22,14 @@ function mapDispatchToProps(dispatch) {
 @connect(mapStatetoProps, mapDispatchToProps)
 class BlobList extends React.Component {
   render() {
-    console.log(this.props.location);
-    console.log(this.props.node);
-
     if (this.props.location.coords === null) {
       return <div className="text-center" style={styles.list}>getting your location ... </div>;
     }
-    if (!this.props.node.nearByNodes) return null;
-
+    if (!this.props.node.nearByNodes) {
+      return <div className="text-center" style={styles.list}>loading nearby nodes ... </div>;
+    }
     const blobs = this.props.node.nearByNodes.map((node, key) => (
-      <Blob node={node} key={key} deleteHandler={this.props.removeNode} />)
+      <Blob node={node} key={key} deleteHandler={this.props.removeNode} location={this.props.location} />)
     );
     return (
       <ListGroup style={styles.list}>

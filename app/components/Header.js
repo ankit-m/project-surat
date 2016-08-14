@@ -17,17 +17,30 @@ const titleStyle = {
   fontSize: '22px',
 };
 
-const Header = (props) => (
-  <div style={headerStyle} className="clearfix">
-    <b style={titleStyle}>{props.location}</b>
-    <Button style={toggleMapStyle}>
-      <span className="glyphicon glyphicon-menu-hamburger" />
-    </Button>
-  </div>
-);
+const Header = (props) => {
+  if (!props.location || props.location.coords === null) {
+    return (
+      <div style={headerStyle} className="clearfix">
+        <b style={titleStyle}>{props.place}</b>
+        <Button style={toggleMapStyle}>
+          <span className="glyphicon glyphicon-menu-hamburger" />
+        </Button>
+      </div>
+    );
+  }
+  return (
+    <div style={headerStyle} className="clearfix">
+      <b style={titleStyle}>{props.place} | {props.location.coords[0]} , {props.location.coords[1]}</b>
+      <Button style={toggleMapStyle}>
+        <span className="glyphicon glyphicon-menu-hamburger" />
+      </Button>
+    </div>
+  );
+};
 
 Header.propTypes = {
-  location: React.PropTypes.string.isRequired,
+  place: React.PropTypes.string,
+  location: React.PropTypes.array,
 };
 
 export default Header;
