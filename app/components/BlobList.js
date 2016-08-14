@@ -21,12 +21,13 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStatetoProps, mapDispatchToProps)
 class BlobList extends React.Component {
-  componentDidMount() {
-    // getlocation here
-    this.props.getNodes([12.396, 34.670]);
-  }
   render() {
-    if (!this.props.node.nearByNodes) {
+    console.log(this.props.location);
+    if (this.props.location.coords === null) {
+      return <div className="text-center" style={styles.list}>getting your location ... </div>;
+    }
+    if (this.props.location.coords && !this.props.node.nearByNodes) {
+      this.props.getNodes(this.props.location);
       return <div className="text-center" style={styles.list}>loading ... </div>;
     }
     const blobs = this.props.node.nearByNodes.map((node, key) => (
@@ -44,6 +45,7 @@ BlobList.propTypes = {
   getNodes: React.PropTypes.func,
   node: React.PropTypes.object,
   removeNode: React.PropTypes.func,
+  location: React.PropTypes.array,
 };
 
 export default BlobList;

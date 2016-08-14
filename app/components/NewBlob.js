@@ -64,7 +64,7 @@ export class NewBlob extends React.Component {
     this.setState({ showForm: false });
   }
   submitForm() {
-    const coords = [12.396, 34.670];
+    const coords = this.props.location.coords;
     const owner = 'Ankit Muchhala';
     const isProtected = false;
     const password = '';
@@ -135,6 +135,7 @@ export class NewBlob extends React.Component {
 
 NewBlob.propTypes = {
   saveNode: React.PropTypes.func,
+  location: React.PropTypes.object,
 };
 
 export default NewBlob;
