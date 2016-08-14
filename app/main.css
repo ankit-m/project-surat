@@ -9,7 +9,7 @@ body {
 
 @media (min-width: 992px) {
   #map {
-    height: calc(100vh - 55px);
+    height: calc(100vh - 45px);
     width: 100%;
   }
 }

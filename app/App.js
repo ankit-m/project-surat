@@ -8,7 +8,7 @@ import './assets/css/bootstrap.min.css';
 
 export default () => (
   <div>
-    <Header place="Surat" />
+    <Header place="Project Surat" />
     <Navigator />
     <div className="clearfix">
       <div className="col-md-6" style={{ padding: '0' }}>

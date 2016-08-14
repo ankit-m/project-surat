@@ -20,7 +20,7 @@ const headerStyle = {
 };
 
 const titleStyle = {
-  fontSize: '22px',
+  fontSize: '17px',
 };
 
 @connect(mapStatetoProps, mapDispatchToProps)
