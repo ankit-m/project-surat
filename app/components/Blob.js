@@ -40,7 +40,7 @@ class Blob extends React.Component {
               <small>{`${this.measure(this.props.node.coords, this.props.location.coords)} m`}</small>
             </Label>
           </span>
-          {/*<span style={styles.icon}>
+          {/* <span style={styles.icon}>
             <Label bsStyle="default">
               <span className="glyphicon glyphicon-lock" />
             </Label>
@@ -57,7 +57,7 @@ class Blob extends React.Component {
 Blob.propTypes = {
   node: React.PropTypes.object,
   deleteHandler: React.PropTypes.func,
-  location: React.PropTypes.array,
+  location: React.PropTypes.object,
 };
 
 export default Blob;

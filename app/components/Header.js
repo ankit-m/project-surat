@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions';
+import { SLIDER_MAX, SLIDER_MIN, SLIDER_STEP } from '../Const';
 
 function mapStatetoProps(state) {
   return { ...state.reducer };
@@ -12,7 +12,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actions, dispatch);
 }
 
-
 const headerStyle = {
   position: 'relative',
   padding: '10px',
@@ -21,8 +20,16 @@ const headerStyle = {
   paddingLeft: '20px',
 };
 
-const toggleMapStyle = {
+const sliderValueStyle = {
+  backgroundColor: '#D3D3D3',
+  borderRadius: '10px',
+  padding: '5px',
+};
+
+const pullRight = {
   float: 'right',
+  margin: 0,
+  display: 'block',
 };
 
 const titleStyle = {
@@ -31,14 +38,22 @@ const titleStyle = {
 
 @connect(mapStatetoProps, mapDispatchToProps)
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sliderValue: 1,
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    console.log(e.target.value);
+    this.setState({ sliderValue: e.target.value });
+  }
   render() {
     if (!this.props.location || this.props.location.coords === null) {
       return (
         <div style={headerStyle} className="clearfix">
           <b style={titleStyle}>{this.props.place}</b>
-          <Button style={toggleMapStyle}>
-            <span className="glyphicon glyphicon-menu-hamburger" />
-          </Button>
         </div>
       );
     }
@@ -53,11 +68,21 @@ class Header extends React.Component {
           {this.props.location.coords[1].toPrecision(6)}
           {')'}
         </small>
-        <Button style={toggleMapStyle}>
-          <span className="glyphicon glyphicon-menu-hamburger" />
-        </Button>
+        <div style={pullRight}>
+          <h6> Set Range!
+            <span style={sliderValueStyle}> {this.state.sliderValue}</span>
+          </h6>
+          <input
+            type="range"
+            value={this.state.sliderValue}
+            onChange={this.handleChange}
+            step={SLIDER_STEP}
+            max={SLIDER_MAX}
+            min={SLIDER_MIN}
+          />
+        </div>
       </div>
-    );
+      );
   }
 }
 

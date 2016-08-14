@@ -29,8 +29,8 @@ class BlobList extends React.Component {
       return <div className="text-center" style={styles.list}>loading nearby nodes ... </div>;
     }
     const blobs = this.props.node.nearByNodes.map((node, key) => (
-      <Blob node={node} key={key} deleteHandler={this.props.removeNode} location={this.props.location} />)
-    );
+      <Blob node={node} key={key} deleteHandler={this.props.removeNode} location={this.props.location} />
+    ));
 
     return (
       <ListGroup style={styles.list}>

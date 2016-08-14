@@ -61,6 +61,9 @@ const common = {
       title: 'Project Surat 👯',
       appMountId: 'app',
       inject: false,
+      options: {
+        mobile: true,
+      },
     }),
   ],
 };
