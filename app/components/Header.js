@@ -21,6 +21,12 @@ const headerStyle = {
   paddingLeft: '20px',
 };
 
+const sliderValueStyle = {
+  backgroundColor: '#D3D3D3',
+  borderRadius: '10px',
+  padding: '5px',
+};
+
 const pullRight = {
   float: 'right',
   margin: 0,
@@ -63,7 +69,9 @@ class Header extends React.Component {
           {')'}
         </small>
         <div style={pullRight}>
-          <h6> Set Range! <span style= {{ backgroundColor: '#D3D3D3', borderRadius:'10px', padding: '5px' }}>{this.state.sliderValue}</span></h6>
+          <h6> Set Range!
+            <span style={sliderValueStyle}> {this.state.sliderValue}</span>
+          </h6>
           <input
             type="range"
             value={this.state.sliderValue}
