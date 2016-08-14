@@ -6,8 +6,7 @@ import Navigator from './components/Navigator';
 
 import './assets/css/bootstrap.min.css';
 import * as core from './core/NodeFunctions';
-
-window.core = core;
+// window.core = core;
 
 export default () => (
   <div>
