@@ -1,5 +1,17 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../redux/actions';
+
+function mapStatetoProps(state) {
+  return { ...state.reducer };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actions, dispatch);
+}
+
 
 const headerStyle = {
   position: 'relative',
@@ -17,26 +29,36 @@ const titleStyle = {
   fontSize: '22px',
 };
 
-const Header = (props) => {
-  if (!props.location || props.location.coords === null) {
+@connect(mapStatetoProps, mapDispatchToProps)
+class Header extends React.Component {
+  render() {
+    if (!this.props.location || this.props.location.coords === null) {
+      return (
+        <div style={headerStyle} className="clearfix">
+          <b style={titleStyle}>{this.props.place}</b>
+          <Button style={toggleMapStyle}>
+            <span className="glyphicon glyphicon-menu-hamburger" />
+          </Button>
+        </div>
+      );
+    }
     return (
       <div style={headerStyle} className="clearfix">
-        <b style={titleStyle}>{props.place}</b>
+        <b style={titleStyle}>{this.props.place}</b>
+        <small className="text-muted">
+          {'  ('}
+          {this.props.location.coords[0].toPrecision(3)},
+          {' '}
+          {this.props.location.coords[1].toPrecision(3)}
+          {')'}
+        </small>
         <Button style={toggleMapStyle}>
           <span className="glyphicon glyphicon-menu-hamburger" />
         </Button>
       </div>
     );
   }
-  return (
-    <div style={headerStyle} className="clearfix">
-      <b style={titleStyle}>{props.place} | {props.location.coords[0]} , {props.location.coords[1]}</b>
-      <Button style={toggleMapStyle}>
-        <span className="glyphicon glyphicon-menu-hamburger" />
-      </Button>
-    </div>
-  );
-};
+}
 
 Header.propTypes = {
   place: React.PropTypes.string,
