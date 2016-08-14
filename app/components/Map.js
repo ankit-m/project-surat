@@ -22,8 +22,9 @@ function swapArray(array) {
 
 @connect(mapStatetoProps, mapDispatchToProps)
 export default class Maps extends React.Component {
-  foo() {
-
+  static propTypes = {
+    node: React.PropTypes.object,
+    setActiveNode: React.PropTypes.func,
   }
   shouldComponentUpdate(nextProps) {
     if (this.map
@@ -44,6 +45,16 @@ export default class Maps extends React.Component {
       });
     }
     return true;
+  }
+  handleClick = (e, query, map) => {
+    const x1y1 = [e.point.x - 1, e.point.y - 1];
+    const x2y2 = [e.point.x + 1, e.point.y + 1];
+    const feat = query([x1y1, x2y2]);
+    if (feat.length > 0) {
+      if (feat[0].properties.kind === 'node') {
+        this.props.setActiveNode(feat[0].properties.id);
+      }
+    }
   }
   render() {
     if (!this.props.location.coords) return null;
@@ -72,6 +83,8 @@ export default class Maps extends React.Component {
         properties: {
           title: 'Text',
           kind: 'node',
+          id: n.id,
+          data: n.data,
         },
       }));
       data.features = data.features.concat(nodes);
@@ -88,6 +101,7 @@ export default class Maps extends React.Component {
           name="markers"
           type="geojson"
           data={data}
+          onClick={this.handleClick}
         >
           <Circle
             name="pointer"

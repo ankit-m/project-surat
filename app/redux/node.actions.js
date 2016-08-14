@@ -5,6 +5,7 @@ export const REC_SAVE_NODE = 'SAVE_NODE';
 export const SAVE_NEIGHBOUR_NODES = 'SAVE_NEIGHBOUR_NODES';
 export const DELETE_NODE = 'DELETE_NODE';
 export const SET_SQUARES = 'SET_SQUARES';
+export const ACTIVE_NODE = 'ACTIVE_NODE';
 
 export function reqSaveNode() {
   return {
@@ -21,6 +22,14 @@ export function recSaveNode() {
 function deleteNodeRec() {
   return {
     type: DELETE_NODE,
+  };
+}
+
+
+export function setActiveNode(id) {
+  return {
+    type: ACTIVE_NODE,
+    id,
   };
 }
 
@@ -52,6 +61,8 @@ export function saveNode(nodeObj) {
       .catch(e => console.error(e));
   };
 }
+
+
 export function getNodes(location) {
   console.log(location);
   const sqrs = getAllSquares(location);
