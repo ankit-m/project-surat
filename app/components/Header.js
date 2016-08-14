@@ -23,7 +23,8 @@ const headerStyle = {
 
 const pullRight = {
   float: 'right',
-  background: '#fff123',
+  margin: 0,
+  display: 'block',
 };
 
 const titleStyle = {
@@ -40,6 +41,7 @@ class Header extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(e) {
+    console.log(e.target.value);
     this.setState({ sliderValue: e.target.value });
   }
   render() {
@@ -61,9 +63,11 @@ class Header extends React.Component {
           {')'}
         </small>
         <div style={pullRight}>
-          <ReactBootstrapSlider
+          <h6> Set Range! <span style= {{ backgroundColor: '#D3D3D3', borderRadius:'10px', padding: '5px' }}>{this.state.sliderValue}</span></h6>
+          <input
+            type="range"
             value={this.state.sliderValue}
-            handleChange={this.handleChange}
+            onChange={this.handleChange}
             step={SLIDER_STEP}
             max={SLIDER_MAX}
             min={SLIDER_MIN}
