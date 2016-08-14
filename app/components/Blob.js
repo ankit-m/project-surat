@@ -40,13 +40,18 @@ class Blob extends React.Component {
     return (
       <ListGroupItem className="clearfix" style={this.props.isActive ? styles.active: styles.inActive} >
         <div className="col-md-9">
-          {this.props.node.data}
+          {this.props.node.data.content}
         </div>
         <div className="pull-right">
           <small className="text-muted" style={styles.author} >{this.props.node.owner}</small>
           <span style={styles.icon}>
             <Label bsStyle="warning">
-              <small>{`${this.measure(this.props.node.coords, this.props.location.coords)} m`}</small>
+              <span>{`${this.measure(this.props.node.coords, this.props.location.coords)} m`}</span>
+            </Label>
+          </span>
+          <span style={styles.icon}>
+            <Label bsStyle="success">
+              <span>{this.props.node.data.type}</span>
             </Label>
           </span>
           {/* <span style={styles.icon}>
@@ -54,9 +59,9 @@ class Blob extends React.Component {
               <span className="glyphicon glyphicon-lock" />
             </Label>
           </span>*/}
-          <Button bsStyle="danger" style={styles.icon} bsSize="xsmall" onClick={this.deleteBlob}>
+          {/*<Button bsStyle="danger" style={styles.icon} bsSize="xsmall" onClick={this.deleteBlob}>
             <span className="glyphicon glyphicon-remove" />
-          </Button>
+          </Button>*/}
         </div>
       </ListGroupItem>
     );

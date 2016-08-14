@@ -56,7 +56,7 @@ export default class Maps extends React.Component {
         const popup = new mapboxgl.Popup()
        .setLngLat(feat[0].geometry.coordinates)
        // this will be pure html, dont do react in this one
-       .setHTML(`<div>${feat[0].properties.data}</div>`)
+       .setHTML(`<div class="map-popup">${feat[0].properties.data}</div>`)
        .addTo(this.map);
       }
     }

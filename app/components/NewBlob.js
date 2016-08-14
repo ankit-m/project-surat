@@ -15,12 +15,10 @@ const styles = {
   add: {
     border: '0',
     textAlign: 'center',
-    opacity: '0.3',
   },
   form: {
     border: '0',
-    opacity: '0.3',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#f5f5f5',
   },
 };
 
@@ -71,10 +69,10 @@ export class NewBlob extends React.Component {
     const isProtected = false;
     const password = '';
     this.props.saveNode({
-      data: this.state.data,
-      range: this.state.range,
+      data: { type: 'txt', content: this.state.data },
+      range: '',
       password,
-      expiry: this.state.expire,
+      expiry: '',
       coords,
       owner: this.state.owner || 'Anonymous',
       isProtected,
@@ -84,9 +82,6 @@ export class NewBlob extends React.Component {
   clearForm() {
     this.setState({
       data: '',
-      pass: '',
-      expire: '',
-      range: '',
       owner: '',
     });
   }
@@ -106,35 +101,23 @@ export class NewBlob extends React.Component {
     }
     return (
       <div>
-        <ListGroup>
+        <ListGroup style={{ margin: '0 10px' }}>
           <ListGroupItem style={styles.form}>
             <FormGroup controlId="data">
               <FormControl componentClass="textarea" placeholder="Your message" value={this.state.data} onChange={this.setData} />
             </FormGroup>
             <Form inline>
-              <FormGroup controlId="range">
-                <FormControl type="number" placeholder="Range (metres)" value={this.state.range} onChange={this.setRange} />
-              </FormGroup>
-              {' '}
-              <FormGroup controlId="pass">
-                <FormControl type="number" placeholder="PIN" value={this.state.pass} onChange={this.setPass} />
-              </FormGroup>
-              {' '}
-              <FormGroup controlId="expire">
-                <FormControl type="number" placeholder="Lifetime (minutes)" value={this.state.expire} onChange={this.setExpiry} />
-              </FormGroup>
-              {' '}
               <FormGroup controlId="owner">
                 <FormControl type="textarea" placeholder="Owner" value={this.state.owner} onChange={this.setOwner} />
               </FormGroup>
+              <div className="clearfix pull-right">
+                <Button onClick={this.cancelForm}>Cancel</Button>
+                {'  '}
+                <Button onClick={this.submitForm}>Done</Button>
+              </div>
             </Form>
           </ListGroupItem>
         </ListGroup>
-        <div className="clearfix pull-right">
-          <Button onClick={this.cancelForm}>Cancel</Button>
-          {'  '}
-          <Button onClick={this.submitForm}>Done</Button>
-        </div>
       </div>
     );
   }

@@ -7,7 +7,7 @@ import Blob from './Blob';
 
 const styles = {
   list: {
-    marginTop: '20px',
+    margin: '10px',
   },
 };
 
