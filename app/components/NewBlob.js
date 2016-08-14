@@ -69,10 +69,10 @@ export class NewBlob extends React.Component {
     const isProtected = false;
     const password = '';
     this.props.saveNode({
-      data: this.state.data,
-      range: this.state.range,
+      data: { type: 'txt', content: this.state.data },
+      range: '',
       password,
-      expiry: this.state.expire,
+      expiry: '',
       coords,
       owner: this.state.owner || 'Anonymous',
       isProtected,
@@ -82,9 +82,6 @@ export class NewBlob extends React.Component {
   clearForm() {
     this.setState({
       data: '',
-      pass: '',
-      expire: '',
-      range: '',
       owner: '',
     });
   }
