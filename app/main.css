@@ -1,4 +1,15 @@
+body {
+  overflow-x: hidden;
+}
+
 #map {
-  height: calc(100vh - 55px);
-  width: 500px;
+  height: 50vh;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  #map {
+    height: calc(100vh - 55px);
+    width: 100%;
+  }
 }
