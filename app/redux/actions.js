@@ -3,6 +3,7 @@ export {
   reqSaveNode,
   removeNode,
   saveNode,
+  setActiveNode,
 } from './node.actions';
 
 export {

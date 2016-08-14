@@ -22,8 +22,9 @@ function swapArray(array) {
 
 @connect(mapStatetoProps, mapDispatchToProps)
 export default class Maps extends React.Component {
-  foo() {
-
+  static propTypes = {
+    node: React.PropTypes.object,
+    setActiveNode: React.PropTypes.func,
   }
   shouldComponentUpdate(nextProps) {
     if (this.map
@@ -45,8 +46,24 @@ export default class Maps extends React.Component {
     }
     return true;
   }
+  handleClick = (e, query, map) => {
+    const x1y1 = [e.point.x - 1, e.point.y - 1];
+    const x2y2 = [e.point.x + 1, e.point.y + 1];
+    const feat = query([x1y1, x2y2]);
+    if (feat.length > 0) {
+      if (feat[0].properties.kind === 'node') {
+        this.props.setActiveNode(feat[0].properties.id);
+        const popup = new mapboxgl.Popup()
+       .setLngLat(feat[0].geometry.coordinates)
+       // this will be pure html, dont do react in this one
+       .setHTML(`<div>${feat[0].properties.data}</div>`)
+       .addTo(this.map);
+      }
+    }
+  }
   render() {
     if (!this.props.location.coords) return null;
+
     const data = {
       type: 'FeatureCollection',
       features: [{
@@ -72,6 +89,9 @@ export default class Maps extends React.Component {
         properties: {
           title: 'Text',
           kind: 'node',
+          id: n.id,
+          coords: swapArray(n.coords),
+          data: n.data,
         },
       }));
       data.features = data.features.concat(nodes);
@@ -80,14 +100,21 @@ export default class Maps extends React.Component {
       <Map
         style="mapbox://styles/mapbox/dark-v9"
         center={swapArray(this.props.location.coords)}
-        zoom={18}
+        zoom={16}
         mapboxgl={mapboxgl}
-        onLoad={(map) => { this.map = map; }}
+        onLoad={(map) => {
+          this.map = map;
+          map.on('mousemove', function (e) {
+            const features = map.queryRenderedFeatures(e.point, { layers: ['pointer2'] });
+            map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+          });
+        }}
       >
         <Source
           name="markers"
           type="geojson"
           data={data}
+          onClick={this.handleClick}
         >
           <Circle
             name="pointer"
