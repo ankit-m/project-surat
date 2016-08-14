@@ -5,6 +5,7 @@ import BlobList from './components/BlobList';
 import Navigator from './components/Navigator';
 import Map from './components/Map';
 import './assets/css/bootstrap.min.css';
+import File from './components/FileHandler';
 
 export default () => (
   <div>
@@ -15,8 +16,9 @@ export default () => (
         <Map />
       </div>
       <div className="col-md-6" style={{ padding: '0 10px' }}>
-        <BlobList style={{}} />
+        <BlobList />
         <NewBlob />
+        <File />
       </div>
     </div>
   </div>
