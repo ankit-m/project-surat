@@ -106,7 +106,12 @@ export class NewBlob extends React.Component {
         <ListGroup style={{ margin: '0 10px' }}>
           <ListGroupItem style={styles.form} className="clearfix">
             <FormGroup controlId="data">
-              <FormControl componentClass="textarea" placeholder="Your message" value={this.state.data} onChange={this.setData} />
+              <FormControl
+                componentClass="textarea"
+                placeholder="Your message"
+                value={this.state.data}
+                onChange={this.setData}
+              />
             </FormGroup>
             <File />
             <Form style={{ marginTop: '15px' }} inline>
