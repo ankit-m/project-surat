@@ -12,8 +12,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actions, dispatch);
 }
 
-
-
 @connect(mapStatetoProps, mapDispatchToProps)
 export default class Navigator extends React.Component {
   static propTypes = {
