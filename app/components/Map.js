@@ -53,11 +53,17 @@ export default class Maps extends React.Component {
     if (feat.length > 0) {
       if (feat[0].properties.kind === 'node') {
         this.props.setActiveNode(feat[0].properties.id);
+        const popup = new mapboxgl.Popup()
+       .setLngLat(feat[0].geometry.coordinates)
+       // this will be pure html, dont do react in this one
+       .setHTML(`<div>${feat[0].properties.data}</div>`)
+       .addTo(this.map);
       }
     }
   }
   render() {
     if (!this.props.location.coords) return null;
+
     const data = {
       type: 'FeatureCollection',
       features: [{
@@ -84,6 +90,7 @@ export default class Maps extends React.Component {
           title: 'Text',
           kind: 'node',
           id: n.id,
+          coords: swapArray(n.coords),
           data: n.data,
         },
       }));
@@ -95,7 +102,13 @@ export default class Maps extends React.Component {
         center={swapArray(this.props.location.coords)}
         zoom={16}
         mapboxgl={mapboxgl}
-        onLoad={(map) => { this.map = map; }}
+        onLoad={(map) => {
+          this.map = map;
+          map.on('mousemove', function (e) {
+            const features = map.queryRenderedFeatures(e.point, { layers: ['pointer2'] });
+            map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+          });
+        }}
       >
         <Source
           name="markers"
