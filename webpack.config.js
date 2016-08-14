@@ -17,6 +17,9 @@ const common = {
   entry: PATHS.app,
   resolve: {
     extensions: ['', '.js', '.jsx'],
+    alias: {
+      'webworkify': 'webworkify-webpack',
+    },
   },
   output: {
     path: PATHS.build,
@@ -34,14 +37,23 @@ const common = {
       },
       {
         test: /\.jsx?$/,
-        loaders: ['babel?cacheDirectory'],
-        include: PATHS.app,
+        loaders: ['transform/cacheable?brfs', 'babel?cacheDirectory'],
+        include: [PATHS.app, path.resolve('node_modules/mapbox-gl-shaders/index.js')],
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
       },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
       { test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000' },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
     ],
+    postLoaders: [{
+      include: /node_modules\/mapbox-gl-shaders/,
+      loader: 'transform',
+      query: 'brfs',
+    }],
   },
   plugins: [
     new HtmlWebpackPlugin({

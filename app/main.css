@@ -1,3 +1,4 @@
-body {
-  background: teal;
+#map {
+  height: calc(100vh - 55px);
+  width: 500px;
 }

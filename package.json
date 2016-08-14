@@ -21,6 +21,7 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-survivejs-kanban": "^0.3.3",
+    "brfs": "^1.4.3",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.5.0",
     "cheerio": "^0.20.0",
@@ -37,15 +38,19 @@
     "gh-pages": "^0.11.0",
     "html-webpack-plugin": "^2.22.0",
     "html-webpack-template": "^5.0.0",
+    "json-loader": "^0.5.4",
     "mocha": "^3.0.2",
     "style-loader": "^0.13.1",
+    "transform-loader": "^0.2.3",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^0.14.1"
+    "webpack-merge": "^0.14.1",
+    "webworkify-webpack": "^1.1.6"
   },
   "dependencies": {
     "firebase": "^3.2.1",
+    "mapbox-gl": "^0.22.0",
     "maps-react": "0.0.27",
     "react": "^15.3.0",
     "react-bootstrap": "^0.30.2",

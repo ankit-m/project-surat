@@ -12,10 +12,14 @@ export default () => (
   <div>
     <Header place="Surat" />
     <Navigator />
-    <div className="container">
-      <BlobList />
-      <NewBlob />
-      <Map />
+    <div style={{ display: 'flex', flexDirection: 'row'}}>
+      <div className="container">
+        <BlobList />
+        <NewBlob />
+      </div>
+      <div>
+        <Map />
+      </div>
     </div>
   </div>
 );
