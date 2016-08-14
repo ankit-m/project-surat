@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactBootstrapSlider from 'react-bootstrap-slider';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions';
+import { SLIDER_MAX, SLIDER_MIN, SLIDER_STEP } from '../Const';
 
 function mapStatetoProps(state) {
   return { ...state.reducer };
@@ -11,7 +13,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actions, dispatch);
 }
 
-
 const headerStyle = {
   position: 'relative',
   padding: '10px',
@@ -20,12 +21,27 @@ const headerStyle = {
   paddingLeft: '20px',
 };
 
+const pullRight = {
+  float: 'right',
+  background: '#fff123',
+};
+
 const titleStyle = {
   fontSize: '22px',
 };
 
 @connect(mapStatetoProps, mapDispatchToProps)
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sliderValue: 1,
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    this.setState({ sliderValue: e.target.value });
+  }
   render() {
     if (!this.props.location || this.props.location.coords === null) {
       return (
@@ -44,8 +60,17 @@ class Header extends React.Component {
           {this.props.location.coords[1].toPrecision(3)}
           {')'}
         </small>
+        <div style={pullRight}>
+          <ReactBootstrapSlider
+            value={this.state.sliderValue}
+            handleChange={this.handleChange}
+            step={SLIDER_STEP}
+            max={SLIDER_MAX}
+            min={SLIDER_MIN}
+          />
+        </div>
       </div>
-    );
+      );
   }
 }
 
