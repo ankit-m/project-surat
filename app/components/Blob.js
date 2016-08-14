@@ -9,6 +9,12 @@ const styles = {
   author: {
     margin: '8px',
   },
+  active: {
+    backgroundColor: '#f0f0f0',
+  },
+  inActive: {
+    backgroundColor: 'white',
+  },
 };
 
 class Blob extends React.Component {
@@ -29,7 +35,7 @@ class Blob extends React.Component {
   }
   render() {
     return (
-      <ListGroupItem className="clearfix">
+      <ListGroupItem className="clearfix" style={this.props.isActive ? styles.active: styles.inActive} >
         <div className="col-md-9">
           {this.props.node.data}
         </div>
@@ -55,6 +61,7 @@ class Blob extends React.Component {
 }
 
 Blob.propTypes = {
+  isActive: React.PropTypes.object,
   node: React.PropTypes.object,
   deleteHandler: React.PropTypes.func,
   location: React.PropTypes.object,
