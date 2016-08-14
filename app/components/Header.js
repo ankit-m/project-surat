@@ -42,14 +42,15 @@ class Header extends React.Component {
         </div>
       );
     }
+    console.log(this.props.location.coords);
     return (
       <div style={headerStyle} className="clearfix">
         <b style={titleStyle}>{this.props.place}</b>
         <small className="text-muted">
           {'  ('}
-          {this.props.location.coords[0].toPrecision(3)},
+          {this.props.location.coords[0].toPrecision(6)},
           {' '}
-          {this.props.location.coords[1].toPrecision(3)}
+          {this.props.location.coords[1].toPrecision(6)}
           {')'}
         </small>
         <Button style={toggleMapStyle}>

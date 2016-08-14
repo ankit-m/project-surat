@@ -33,8 +33,8 @@ export default class Navigator extends React.Component {
     const geoSuccessCheck = (pos) => {
       const position = {
         coords: {
-          latitude: pos.coords.latitude.toPrecision(8),
-          longitude: pos.coords.longitude.toPrecision(8),
+          latitude: parseFloat(pos.coords.latitude.toPrecision(8)),
+          longitude: parseFloat(pos.coords.longitude.toPrecision(8)),
         },
       };
       const lat = position.coords.latitude;
@@ -50,8 +50,12 @@ export default class Navigator extends React.Component {
     firebase.database().ref('main').on('child_added', this.handleSnap);
     firebase.database().ref('main').on('child_removed', this.handleSnap);
   }
+  shouldComponentUpdate() {
+    return false;
+  }
   handleSnap = () => {
-    console.debug("handling change");
+    if (!this.props.location.coords) return;
+    console.debug("handling change'");
     this.props.getNodes(this.props.location.coords);
   }
   render() {

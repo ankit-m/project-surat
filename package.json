@@ -46,8 +46,9 @@
   },
   "dependencies": {
     "firebase": "^3.2.1",
+    "maps-react": "0.0.27",
     "react": "^15.3.0",
-	"react-bootstrap": "^0.30.2",
+    "react-bootstrap": "^0.30.2",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
