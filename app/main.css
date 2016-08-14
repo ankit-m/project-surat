@@ -17,3 +17,5 @@ body {
     width: 100%;
   }
 }
+
+@keyframes blinker { to { opacity: 0.1; } }

@@ -14,18 +14,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actions, dispatch);
 }
 
-
-const fileInput = document.getElementById('config-file');
-fileInput.addEventListener('change', (e) => {
-  let file = fileInput.files[0], textType = /text.*/;
-  if (file.type.match(textType)) { const reader = new FileReader();
-    reader.onload = (e) => { const config = JSON.parse(reader.result);
-      if (this.validateConfigFile(config)) { this.save(config, 'Restored configuration from file');
-        window.location.reload(); }
-      else { this.status('Corrupted File.', 2000, 100, 'danger'); } };
-    reader.readAsText(file); } else { this.status('Unsupported file format.', 2000, 100, 'danger'); } });
-fileInput.click();
-
 @connect(mapStatetoProps, mapDispatchToProps)
 export default class Navigator extends React.Component {
   static propTypes = {
@@ -40,13 +28,48 @@ export default class Navigator extends React.Component {
     this.storageRef = firebase.storage().ref();
   }
   onDrop = (files) => {
-    const readFile = new FileReader();
-    readFile.onload = (e) => {
-      const contents = e.target.result;
-      console.log(contents);
-      // const uploadTask = storageRef.child('files/' + file.name).put(file);
-    };
-    readFile.readAsDataURL(files[0]);
+    const uploadTask = firebase.storage().ref().child(`main/${files[0].name}`).put(files[0]);
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED).then( // or 'state_changed'
+        (snapshot) => {
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`Upload is ${progress}% done`);
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+              console.log('Upload is running');
+              break;
+          }
+        }, (error) => {
+      switch (error.code) {
+        case 'storage/unauthorized':
+          break;
+        case 'storage/canceled':
+          break;
+        case 'storage/unknown':
+          break;
+      }
+    }, () => {
+      // Upload successful
+      const downloadURL = uploadTask.snapshot.downloadURL;
+      const data = {
+        type: 'file',
+        content: downloadURL,
+      };
+      const coords = this.props.locations.coords;
+      this.props.saveNode({
+        data,
+        range: null,
+        password: null,
+        expiry: null,
+        coords,
+        owner: 'Anonymous',
+        isProtected: false,
+      });
+    }
+      );
   }
   render() {
     return (

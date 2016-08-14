@@ -54,7 +54,7 @@ export class NewBlob extends React.Component {
     this.setExpiry = this.setExpiry.bind(this);
     this.setOwner = this.setOwner.bind(this);
   }
-  setData(e) { this.setState({ data: e.target.value }); }
+  setData(e) {this.setState({ data: e.target.value }); }
   setPass(e) { this.setState({ pass: e.target.value }); }
   setRange(e) { this.setState({ range: e.target.value }); }
   setExpiry(e) { this.setState({ expire: e.target.value }); }

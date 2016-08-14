@@ -14,7 +14,10 @@ const styles = {
   },
   inActive: {
     backgroundColor: 'white',
+    animation: 'blinker 0.5s cubic-bezier(.5, 0, 1, 1) alternate',
+    animationDuration: '0.5s',
   },
+
 };
 
 class Blob extends React.Component {

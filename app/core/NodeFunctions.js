@@ -102,3 +102,33 @@ export function submitData({ coords, data, expiry, owner, isProtected, password,
   const squareId = coordsToId(getSquareCoords(saltedCoords[0], saltedCoords[1]));
   return saveNode(node, squareId);
 }
+//
+// const uploadTask = firebase.storage().ref().child().put(node.data, metadata);
+// uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED).then( // or 'state_changed'
+//     (snapshot) => {
+//   // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+//       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+//       console.log(`Upload is ${progress}% done`);
+//       switch (snapshot.state) {
+//         case firebase.storage.TaskState.PAUSED: // or 'paused'
+//           console.log('Upload is paused');
+//           break;
+//         case firebase.storage.TaskState.RUNNING: // or 'running'
+//           console.log('Upload is running');
+//           break;
+//       }
+//     }, (error) => {
+//   switch (error.code) {
+//     case 'storage/unauthorized':
+//       break;
+//     case 'storage/canceled':
+//       break;
+//     case 'storage/unknown':
+//       break;
+//   }
+// }, () => {
+//   // Upload successful
+//   const downloadURL = uploadTask.snapshot.downloadURL;
+//   return firebase.database().ref(`main/${btoa(squareId)}/${btoa(node.id)}`)
+// }
+//   );

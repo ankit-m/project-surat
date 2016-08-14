@@ -1,6 +1,6 @@
-## Based on surviveJS
+## LocoDrop
 
-`This branch doesn't have Redux`
+`A location based file sharing system. Built at InOut Hackathon`
 
 * Has production splitting :D
 
@@ -11,4 +11,4 @@
 ### Deploy
     $ npm run build
 
-bundled app would be in build directory 
+Bundled app would be in build directory
