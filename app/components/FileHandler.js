@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
+import ProgressBar from 'react-bootstrap';
 
 import * as actions from '../redux/actions';
 import firebase from '../firebase';
@@ -26,13 +27,19 @@ export default class Navigator extends React.Component {
   constructor(props) {
     super(props);
     this.storageRef = firebase.storage().ref();
+    this.state = {
+      isRunning: false,
+      progress: 0,
+    };
   }
   onDrop = (files) => {
+    console.log(files[0]);
     const uploadTask = firebase.storage().ref().child(`main/${files[0].name}`).put(files[0]);
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED).then( // or 'state_changed'
+    uploadTask.on('state_changed', // or 'state_changed'
         (snapshot) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          // this.setState({ isRunning: true, progress });
           console.log(`Upload is ${progress}% done`);
           switch (snapshot.state) {
             case firebase.storage.TaskState.PAUSED: // or 'paused'
@@ -43,41 +50,45 @@ export default class Navigator extends React.Component {
               break;
           }
         }, (error) => {
-      switch (error.code) {
-        case 'storage/unauthorized':
-          break;
-        case 'storage/canceled':
-          break;
-        case 'storage/unknown':
-          break;
-      }
-    }, () => {
+          switch (error.code) {
+            case 'storage/unauthorized':
+              break;
+            case 'storage/canceled':
+              break;
+            case 'storage/unknown':
+              break;
+          }
+        }, () => {
       // Upload successful
-      const downloadURL = uploadTask.snapshot.downloadURL;
-      const data = {
-        type: 'file',
-        content: downloadURL,
-      };
-      const coords = this.props.locations.coords;
-      this.props.saveNode({
-        data,
-        range: null,
-        password: null,
-        expiry: null,
-        coords,
-        owner: 'Anonymous',
-        isProtected: false,
-      });
-    }
-      );
+          this.setState({ isRunning: false });
+          const downloadURL = uploadTask.snapshot.downloadURL;
+          const data = {
+            name: files[0].name,
+            type: 'file',
+            content: downloadURL,
+          };
+          const coords = this.props.location.coords;
+          this.props.saveNode({
+            data,
+            range: null,
+            password: null,
+            expiry: null,
+            coords,
+            owner: 'Anonymous',
+            isProtected: false,
+          });
+        });
   }
   render() {
-    return (
-      <div>
-        <Dropzone ref="dropzone" onDrop={this.onDrop}>
-          <div>Try dropping a file here, or click to upload.</div>
-        </Dropzone>
-      </div>
+  //   const display = (this.state.isRunning ? <ProgressBar now={this.state.progress} /> : (<Dropzone ref="dropzone" onDrop={this.onDrop}>
+  //     <div>Try dropping a file here, or click to upload.</div>
+  //   </Dropzone>)
+  // );
+    return (<div>
+      <Dropzone ref="dropzone" onDrop={this.onDrop}>
+        <div>Try dropping a file here, or click to upload.</div>
+      </Dropzone>
+    </div>
     );
   }
 }
