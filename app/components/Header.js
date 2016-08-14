@@ -2,7 +2,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions';
-import { SLIDER_MAX, SLIDER_MIN, SLIDER_STEP } from '../Const';
 
 function mapStatetoProps(state) {
   return { ...state.reducer };
@@ -20,35 +19,12 @@ const headerStyle = {
   paddingLeft: '20px',
 };
 
-const sliderValueStyle = {
-  backgroundColor: '#D3D3D3',
-  borderRadius: '10px',
-  padding: '5px',
-};
-
-const pullRight = {
-  float: 'right',
-  margin: 0,
-  display: 'block',
-};
-
 const titleStyle = {
   fontSize: '22px',
 };
 
 @connect(mapStatetoProps, mapDispatchToProps)
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sliderValue: 1,
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-  handleChange(e) {
-    console.log(e.target.value);
-    this.setState({ sliderValue: e.target.value });
-  }
   render() {
     if (!this.props.location || this.props.location.coords === null) {
       return (
@@ -67,19 +43,6 @@ class Header extends React.Component {
           {this.props.location.coords[1].toPrecision(6)}
           {')'}
         </small>
-        <div style={pullRight}>
-          <h6> Set Range!
-            <span style={sliderValueStyle}> {this.state.sliderValue}</span>
-          </h6>
-          <input
-            type="range"
-            value={this.state.sliderValue}
-            onChange={this.handleChange}
-            step={SLIDER_STEP}
-            max={SLIDER_MAX}
-            min={SLIDER_MIN}
-          />
-        </div>
       </div>
       );
   }

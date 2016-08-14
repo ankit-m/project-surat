@@ -57,13 +57,10 @@ const common = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'node_modules/html-webpack-template/index.ejs',
+      template: 'index.ejs',
       title: 'Project Surat 👯',
       appMountId: 'app',
       inject: false,
-      options: {
-        mobile: true,
-      },
     }),
   ],
 };
