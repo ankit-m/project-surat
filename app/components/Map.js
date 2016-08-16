@@ -98,45 +98,51 @@ export default class Maps extends React.Component {
       data.features = data.features.concat(nodes);
     }
     return (
-      <Map
-        style="mapbox://styles/mapbox/dark-v9"
-        center={swapArray(this.props.location.coords)}
-        zoom={16}
-        mapboxgl={mapboxgl}
-        onLoad={(map) => {
-          this.map = map;
-          map.on('mousemove', function (e) {
-            const features = map.queryRenderedFeatures(e.point, { layers: ['pointer2'] });
-            map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
-          });
-        }}
-      >
-        <Source
-          name="markers"
-          type="geojson"
-          data={data}
-          onClick={this.handleClick}
+      <div>
+        <Map
+          style="mapbox://styles/mapbox/dark-v9"
+          center={swapArray(this.props.location.coords)}
+          zoom={16}
+          mapboxgl={mapboxgl}
+          onLoad={(map) => {
+            this.map = map;
+            map.on('mousemove', function (e) {
+              const features = map.queryRenderedFeatures(e.point, { layers: ['pointer2'] });
+              map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+            });
+          }}
         >
-          <Circle
-            name="pointer"
-            paint={{
-              'circle-color': '#51bbd6',
-              'circle-radius': 12,
-            }}
-            filter={['==', 'kind', 'current']}
-          />
-          <Circle
-            name="pointer2"
-            paint={{
-              'circle-color': '#f28cb1',
-              'circle-radius': 7,
-              'circle-opacity': 0.8,
-            }}
-            filter={['==', 'kind', 'node']}
-          />
+          <Source
+            name="markers"
+            type="geojson"
+            data={data}
+            onClick={this.handleClick}
+          >
+            <Circle
+              name="pointer"
+              paint={{
+                'circle-color': '#51bbd6',
+                'circle-radius': 12,
+              }}
+              filter={['==', 'kind', 'current']}
+            />
+            <Circle
+              name="pointer2"
+              paint={{
+                'circle-color': '#f28cb1',
+                'circle-radius': 7,
+                'circle-opacity': 0.8,
+              }}
+              filter={['==', 'kind', 'node']}
+            />
 
-        </Source>
-      </Map>
+          </Source>
+        </Map>
+        <div className="attribution">
+          © <a href="https://www.mapbox.com/about/maps/">Mapbox</a>
+          {' '}© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
+        </div>
+      </div>
     );
   }
 }

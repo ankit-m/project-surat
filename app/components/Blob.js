@@ -55,6 +55,9 @@ class Blob extends React.Component {
                 <span>{this.props.node.data.type}</span>
               </Label>
             </span>
+            <Button bsStyle="danger" style={styles.icon} bsSize="xsmall" onClick={this.deleteBlob}>
+              <span className="glyphicon glyphicon-remove" />
+            </Button>
           </div>
         </ListGroupItem>
       );
@@ -76,6 +79,9 @@ class Blob extends React.Component {
               <span>{this.props.node.data.type}</span>
             </Label>
           </span>
+          <Button bsStyle="danger" style={styles.icon} bsSize="xsmall" onClick={this.deleteBlob}>
+            <span className="glyphicon glyphicon-remove" />
+          </Button>
         </div>
       </ListGroupItem>
     );

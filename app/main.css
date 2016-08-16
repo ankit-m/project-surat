@@ -1,6 +1,12 @@
 body {
   overflow-x: hidden;
 }
+.attribution {
+  position: absolute;
+  margin-top: -25px;
+  margin-left: 5px;
+  color: white;
+}
 .mapboxgl-popup-content {
   border-radius: 10px !important;
   background-color: white;
