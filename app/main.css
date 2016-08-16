@@ -27,11 +27,18 @@ body {
   height: 50vh;
   width: 100%;
 }
+.blob-list {
+  height: auto;
+}
 
 @media (min-width: 992px) {
   #map {
     height: calc(100vh - 45px);
     width: 100%;
+  }
+  .blob-list {
+    max-height: calc(100vh - 45px);
+    overflow-y: auto;
   }
 }
 

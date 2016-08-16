@@ -14,7 +14,7 @@ export default () => (
       <div className="col-md-6" style={{ padding: '0' }}>
         <Map />
       </div>
-      <div className="col-md-6" style={{ padding: '0 10px' }}>
+      <div className="col-md-6 blob-list" style={{ padding: '0 10px' }}>
         <BlobList />
         <NewBlob />
       </div>
