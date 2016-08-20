@@ -24,7 +24,7 @@ Ever thought of quickly sharing files with a lot people around you? You don't ha
     * Easy to use drag and drop functionality
 
 ### How it works?
-When a user opens the website, the geo-location of the user is recorded.The user can either view files within a particular range or opt to add a new file. The file could be a text file, image file or plain text. This files are mapped to corresponding geo locations and will continue to remain there until removed (feature yet to be developed). Any user within that range can view and add files.
+When a user opens the website, the geo-location of the user is recorded.The user can either view files within a particular range or opt to add a new file. The file could be a text file, image file or plain text. This files are mapped to corresponding geo locations and will continue to remain there until removed. Any user within that range can view and add files.
 
 ### Link
 https://project-surat.firebaseapp.com/
