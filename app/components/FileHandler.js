@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
-import ProgressBar from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
 
 import * as actions from '../redux/actions';
 import firebase from '../firebase';
@@ -22,6 +22,7 @@ export default class Navigator extends React.Component {
     geoError: React.PropTypes.func,
     getNodes: React.PropTypes.func,
     location: React.PropTypes.object,
+    saveNode: React.PropTypes.func,
   }
 
   constructor(props) {
@@ -38,8 +39,9 @@ export default class Navigator extends React.Component {
     uploadTask.on('state_changed', // or 'state_changed'
         (snapshot) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          // this.setState({ isRunning: true, progress });
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          progress = parseFloat(progress.toPrecision(2));
+          this.setState({ isRunning: true, progress });
           console.log(`Upload is ${progress}% done`);
           switch (snapshot.state) {
             case firebase.storage.TaskState.PAUSED: // or 'paused'
@@ -80,14 +82,12 @@ export default class Navigator extends React.Component {
         });
   }
   render() {
-  //   const display = (this.state.isRunning ? <ProgressBar now={this.state.progress} /> : (<Dropzone ref="dropzone" onDrop={this.onDrop}>
-  //     <div>Try dropping a file here, or click to upload.</div>
-  //   </Dropzone>)
-  // );
+    const display = (this.state.isRunning ? (<div> <p> Uploading... </p> <br/><ProgressBar striped now={this.state.progress} /></div>) : (<Dropzone ref="dropzone" onDrop={this.onDrop}>
+      <div>Try dropping a file here, or click to upload.</div>
+    </Dropzone>)
+  );
     return (<div>
-      <Dropzone ref="dropzone" onDrop={this.onDrop}>
-        <div>Try dropping a file here, or click to upload.</div>
-      </Dropzone>
+      { display }
     </div>
     );
   }
