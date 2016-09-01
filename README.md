@@ -28,7 +28,7 @@ When a user opens the website, the geo-location of the user is recorded.The user
 
 ### License
 ISC License (ISC)
-Copyright (c) 4-digit year, Ankit Muchhala muchhalaankit@gmail.com, Kushan Joshi 0o3ko0@gmail.com, Sahil Jain sahiljain112@gmail.com
+Copyright (c) 2016, Ankit Muchhala muchhalaankit@gmail.com, Kushan Joshi 0o3ko0@gmail.com, Sahil Jain sahiljain112@gmail.com
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
